@@ -1,0 +1,98 @@
+/*
+  Beyond Horizon — theme
+  Paper white / near-black / one signal-red accent.
+  One variable grotesk (Archivo) with weight + width contrast.
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 45 30% 97%;
+        --foreground: 0 0% 7%;
+        --card: 45 30% 97%;
+        --card-foreground: 0 0% 7%;
+        --popover: 45 30% 97%;
+        --popover-foreground: 0 0% 7%;
+        --primary: 6 82% 44%;
+        --primary-foreground: 45 30% 97%;
+        --secondary: 45 16% 91%;
+        --secondary-foreground: 0 0% 7%;
+        --muted: 45 16% 91%;
+        --muted-foreground: 0 0% 34%;
+        --accent: 6 82% 44%;
+        --accent-foreground: 45 30% 97%;
+        --destructive: 6 82% 44%;
+        --destructive-foreground: 45 30% 97%;
+        --border: 0 0% 7%;
+        --input: 0 0% 7%;
+        --ring: 6 82% 44%;
+        --radius: 0px;
+        --sidebar-background: 45 30% 97%;
+        --sidebar-foreground: 0 0% 7%;
+        --sidebar-primary: 6 82% 44%;
+        --sidebar-primary-foreground: 45 30% 97%;
+        --sidebar-accent: 45 16% 91%;
+        --sidebar-accent-foreground: 0 0% 7%;
+        --sidebar-border: 0 0% 7%;
+        --sidebar-ring: 6 82% 44%;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+    background: hsl(var(--foreground));
+    color: hsl(var(--foreground));
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+}
+
+/* Variable-font width axis helpers */
+.stretch-narrow {
+    font-stretch: 72%;
+}
+
+.stretch-semi {
+    font-stretch: 92%;
+}
+
+.stretch-wide {
+    font-stretch: 125%;
+}
+
+/* Floating cue chips around the hero image */
+@keyframes bh-float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.bh-float {
+    animation: bh-float 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .bh-float {
+        animation: none;
+    }
+}
