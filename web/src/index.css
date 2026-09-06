@@ -96,3 +96,13 @@ body {
         animation: none;
     }
 }
+
+/* Hide Netlify badge / HUD watermark iframes */
+#nl-hud-frame,
+#nl-badge-frame,
+iframe[id^="nl-"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
