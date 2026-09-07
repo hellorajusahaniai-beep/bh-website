@@ -734,7 +734,7 @@ export default function HomePage() {
             <title>Beyond Horizon — Digital Growth for Local Businesses</title>
             <meta name="description" content="Beyond Horizon is a local business growth partner for Indian restaurants, salons, clinics and shops. We help you get found on Google, look professional online, and turn attention into real customers. Get your free growth audit." />
         </Helmet>
-        <Seo title="Beyond Horizon — Digital Growth for Local Businesses" description="We help Indian local businesses get found on Google, look professional on social media, and turn online attention into real customers." image={HERO_IMAGE} siteName="Beyond Horizon" />
+        <Seo title="Beyond Horizon — Digital Growth for Local Businesses" description="We help Indian local businesses get found on Google, look professional on social media, and turn online attention into real customers." image="/og-image.jpg" siteName="Beyond Horizon" url="https://beyondhorizon.co.in/" />
         <Frame />
         <div className={`min-h-[100dvh] bg-foreground ${FRAME}`}>
             <div className="bg-background">
