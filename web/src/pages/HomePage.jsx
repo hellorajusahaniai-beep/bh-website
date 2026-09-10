@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { Link } from 'react-router-dom';
 import { Search, MapPin, Instagram, Facebook, Globe, MessageCircle, Star, ArrowRight, ArrowUpRight, Check, Megaphone, Camera, PenTool, LayoutGrid, Sparkles, Phone } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import CountUp from '@/components/CountUp';
@@ -34,17 +35,20 @@ const problems = [{
 const services = [{
     word: 'GET FOUND',
     tag: 'SEO + Google + Maps + AI Search',
-    cta: 'Get Found',
+    cta: 'Explore Packages',
+    link: '/services#get-found',
     items: ['Local SEO', 'Google Business Profile', 'Google Maps optimisation', 'Local keyword strategy', 'Website SEO', 'AI search visibility', 'Reviews & reputation strategy']
 }, {
     word: 'LOOK PROFESSIONAL',
     tag: 'Branding + Website + Design + Photography',
-    cta: 'Build Your Presence',
+    cta: 'Explore Packages',
+    link: '/services#look-professional',
     items: ['Website development', 'Landing pages', 'Branding & identity', 'Graphic design', 'Business photography', 'Creative assets', 'Website optimisation']
 }, {
     word: 'GET ATTENTION',
     tag: 'Instagram + Facebook + Content + Reels + UGC',
-    cta: 'Get Attention',
+    cta: 'Explore Packages',
+    link: '/services#get-attention',
     items: ['Instagram & Facebook management', 'Content strategy & calendars', 'Reels & short-form video', 'UGC & creator content', 'Community engagement', 'Offers & campaign creatives']
 }];
 const growthEngines = [{
@@ -100,6 +104,9 @@ function Header() {
         href: '#services',
         label: 'Services'
     }, {
+        href: '/services',
+        label: 'Pricing'
+    }, {
         href: '#process',
         label: 'Process'
     }, {
@@ -117,9 +124,17 @@ function Header() {
                 </span>
             </a>
             <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
-                {links.map(l => <a key={l.href} href={l.href} className="text-xs font-semibold uppercase tracking-[0.15em] text-foreground/70 transition-colors hover:text-primary">
-                    {l.label}
-                </a>)}
+                {links.map(l => (
+                    l.href.startsWith('/') ? (
+                        <Link key={l.href} to={l.href} className="text-xs font-semibold uppercase tracking-[0.15em] text-foreground/70 transition-colors hover:text-primary">
+                            {l.label}
+                        </Link>
+                    ) : (
+                        <a key={l.href} href={l.href} className="text-xs font-semibold uppercase tracking-[0.15em] text-foreground/70 transition-colors hover:text-primary">
+                            {l.label}
+                        </a>
+                    )
+                ))}
             </nav>
             <a href={whatsappLink('Hi Beyond Horizon! I’d like to talk about growing my business online.')} target="_blank" rel="noreferrer" className="inline-flex min-h-[44px] items-center gap-2 bg-foreground px-4 py-2 text-xs font-bold uppercase tracking-[0.15em] text-background transition-colors hover:bg-primary active:scale-[0.98]">
                 <MessageCircle className="h-4 w-4" strokeWidth={2.2} />
@@ -298,10 +313,10 @@ function Services() {
                             <h3 className="stretch-wide mt-3 text-[clamp(1.8rem,4vw,3.2rem)] font-black uppercase leading-[0.95] tracking-tight transition-colors duration-300 group-hover:text-background">
                                 {s.word}
                             </h3>
-                            <a href="#contact" className="mt-5 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.12em] text-foreground underline decoration-primary decoration-2 underline-offset-4 transition-colors duration-300 group-hover:text-background">
+                            <Link to={s.link} className="mt-5 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.12em] text-foreground underline decoration-primary decoration-2 underline-offset-4 transition-colors duration-300 group-hover:text-background">
                                 {s.cta}
                                 <ArrowUpRight className="h-4 w-4 text-primary" strokeWidth={2.6} />
-                            </a>
+                            </Link>
                         </div>
                         <ul className="grid gap-x-8 gap-y-2.5 sm:grid-cols-2 md:col-span-7 md:content-center">
                             {s.items.map(item => <li key={item} className="flex items-center gap-2.5 text-sm font-medium text-foreground/75 transition-colors duration-300 group-hover:text-background/75">
@@ -698,9 +713,17 @@ function Footer() {
                     </p>
                 </div>
                 <nav className="grid grid-cols-2 gap-x-12 gap-y-3 text-sm" aria-label="Footer">
-                    {[['#problem', 'The Problem'], ['#services', 'Services'], ['#process', 'Process'], ['#audit', 'Free Audit'], ['#why-us', 'Why Us'], ['#contact', 'Contact']].map(([href, label]) => <a key={href} href={href} className="font-semibold text-background/70 transition-colors hover:text-primary">
-                        {label}
-                    </a>)}
+                    {[['#problem', 'The Problem'], ['/services', 'Services & Pricing'], ['#process', 'Process'], ['#audit', 'Free Audit'], ['#why-us', 'Why Us'], ['#contact', 'Contact']].map(([href, label]) => (
+                        href.startsWith('/') ? (
+                            <Link key={href} to={href} className="font-semibold text-background/70 transition-colors hover:text-primary">
+                                {label}
+                            </Link>
+                        ) : (
+                            <a key={href} href={href} className="font-semibold text-background/70 transition-colors hover:text-primary">
+                                {label}
+                            </a>
+                        )
+                    ))}
                 </nav>
                 <div className="text-sm">
                     <p className="font-bold uppercase tracking-[0.15em] text-background/50">Reach us</p>

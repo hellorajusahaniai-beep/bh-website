@@ -24,6 +24,7 @@ lerna-debug.log*
 
 # Vite cache
 .vite/
+.wrangler/
 
 # Editor directories and files
 .vscode/*
