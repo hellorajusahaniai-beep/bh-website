@@ -15,12 +15,18 @@ import {
     ShieldCheck,
     Zap,
     HelpCircle,
-    ChevronDown
+    ChevronDown,
+    Camera,
+    Video
 } from 'lucide-react';
 import Reveal from '@/components/Reveal';
 import Seo from '@/components/Seo';
+import googleMapsExplainerImg from '@/assets/google-maps-seo-explainer.jpg';
+import websiteExplainerImg from '@/assets/website-conversion-explainer.jpg';
+import beyondHorizonShootImg from '@/assets/beyond-horizon-video-shoot.jpg';
 
 const WHATSAPP_NUMBER = '919225301670';
+const PORTFOLIO_URL = 'https://beyond-horizon-portfolio.pages.dev';
 const FRAME = 'p-2.5 md:p-3.5';
 const FRAME_INSET = 'top-2.5 bottom-2.5 left-2.5 right-2.5 md:top-3.5 md:bottom-3.5 md:left-3.5 md:right-3.5';
 
@@ -29,20 +35,15 @@ function whatsappLink(message) {
 }
 
 function Frame() {
-    return (
-        <>
-            <div aria-hidden="true" className={`pointer-events-none fixed ${FRAME_INSET} z-[80] border-[3px] border-foreground`} />
-            <div aria-hidden="true" className="pointer-events-none fixed left-2.5 top-2.5 z-[81] h-3 w-3 -translate-x-1/2 -translate-y-1/2 bg-primary md:left-3.5 md:top-3.5" />
-        </>
-    );
+    return null;
 }
 
 function ServicesHeader() {
     return (
-        <header className="sticky top-2.5 z-[70] border-b-[3px] border-foreground bg-background md:top-3.5">
+        <header className="sticky top-0 z-[70] border-b-[3px] border-foreground bg-background">
             <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
                 <Link to="/" className="flex items-baseline gap-2">
-                    <span className="stretch-wide text-lg font-black uppercase leading-none tracking-tight md:text-xl">
+                    <span className="stretch-wide whitespace-nowrap text-base font-black uppercase leading-none tracking-tight sm:text-lg md:text-xl">
                         Beyond Horizon
                     </span>
                     <span className="hidden text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground sm:inline">
@@ -61,6 +62,9 @@ function ServicesHeader() {
                     </a>
                     <a href="#get-attention" className="text-xs font-semibold uppercase tracking-[0.15em] text-foreground/70 transition-colors hover:text-primary">
                         Social & Reels
+                    </a>
+                    <a href={PORTFOLIO_URL} target="_blank" rel="noreferrer" className="text-xs font-semibold uppercase tracking-[0.15em] text-primary transition-colors hover:text-foreground">
+                        Our Work ↗
                     </a>
                     <a href="#growth-audit" className="text-xs font-semibold uppercase tracking-[0.15em] text-foreground/70 transition-colors hover:text-primary">
                         Free Audit
@@ -120,8 +124,8 @@ export default function ServicesPage() {
             a: 'Google’s algorithm changes dynamically based on user location, query intent, and proximity. Any agency guaranteeing a permanent #1 spot is using black-hat tricks that can get your listing suspended. We use compliant, data-driven local SEO (keyword optimization, consistent NAP citations, category tuning, and authentic review velocity) to systematically position you in the top-3 Local 3-Pack where over 70% of real calls happen.'
         },
         {
-            q: 'Video shoot aur editing ka kya process hota hai?',
-            a: 'Social Starter plan mein hum aapko exact shot-list, hook, aur scripting dete hain jiske mutabiq aap mobile se raw video shoot karke bhejte hain — aur hum use high-retention reel format mein professionally edit karte hain. Social Growth aur Custom plans mein monthly shoot coordination aur on-site shoot planning shamil hoti hai.'
+            q: 'Video shoot aur editing ka kya process hota hai? Kya aap on-site shoot bhi karte hain?',
+            a: 'Haan, bilkul! Hum professional on-site video & reel shoot service provide karte hain. Basic Starter plan mein low budget businesses ke liye hum detailed script, viral hooks aur shot-list guide dete hain jisse aap phone se video shoot karke bhejte hain aur hum use edit karte hain. Lekin hamare Social Growth aur Custom plans mein humari team khud professional camera gear, studio lighting aur mics ke saath aapke store, clinic ya office aakar on-site shoot karti hai. Agar aap Starter plan par hain toh bhi on-site shoot add-on karwaya ja sakta hai.'
         },
         {
             q: 'Website live hone ke baad kya koi hidden monthly fee hai?',
@@ -139,7 +143,7 @@ export default function ServicesPage() {
                 <title>Services & Transparent Pricing — Beyond Horizon</title>
                 <meta
                     name="description"
-                    content="Transparent pricing for local business growth. Google Business Profile setup from ₹2,000, monthly local SEO, high-speed business websites from ₹5,000, and reel marketing."
+                    content="Transparent pricing for local business growth. Google Business Profile setup from ₹2,999, monthly local SEO from ₹6,999/mo, high-speed business websites from ₹9,999, and social media growth."
                 />
             </Helmet>
             <Seo
@@ -149,10 +153,8 @@ export default function ServicesPage() {
                 siteName="Beyond Horizon"
                 url="https://beyondhorizon.co.in/services"
             />
-            <Frame />
-            <div className={`min-h-[100dvh] bg-foreground ${FRAME}`}>
-                <div className="bg-background">
-                    <ServicesHeader />
+            <div className="min-h-[100dvh] bg-background">
+                <ServicesHeader />
 
                     <main>
                         {/* Hero Section */}
@@ -209,6 +211,104 @@ export default function ServicesPage() {
                                     <p className="mt-3 max-w-2xl text-base leading-relaxed text-foreground/70">
                                         <strong className="text-foreground">We don’t just sell posts — we build local visibility.</strong> When nearby customers search for what you sell, your business should be the first name they see and call.
                                     </p>
+                                </Reveal>
+
+                                {/* Visual Explainer: What Local SEO & Google Maps Actually Does */}
+                                <Reveal delay={0.08}>
+                                    <div className="relative mt-12 border-[3px] border-foreground bg-secondary/20 p-5 sm:p-8 md:p-10 shadow-[6px_6px_0_0_hsl(var(--foreground))]">
+                                        {/* Google Maps Logo Badge in Top Right Corner */}
+                                        <div className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 z-10 inline-flex items-center gap-2 sm:gap-2.5 border-2 border-foreground bg-background px-2.5 py-1.5 sm:px-3.5 sm:py-2 shadow-[3px_3px_0_0_hsl(var(--foreground))] transition-transform hover:-translate-y-0.5">
+                                            <svg className="h-5 w-auto shrink-0 sm:h-6" viewBox="0 0 92.3 132.3" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill="#1a73e8" d="M60.2 2.2C55.8.8 51 0 46.1 0 32 0 19.3 6.4 10.8 16.5l21.8 18.3L60.2 2.2z"/>
+                                                <path fill="#ea4335" d="M10.8 16.5C4.1 24.5 0 34.9 0 46.1c0 8.7 1.7 15.7 4.6 22l28-33.3-21.8-18.3z"/>
+                                                <path fill="#4285f4" d="M46.2 28.5c9.8 0 17.7 7.9 17.7 17.7 0 4.3-1.6 8.3-4.2 11.4 0 0 13.9-16.6 27.5-32.7-5.6-10.8-15.3-19-27-22.7L32.6 34.8c3.3-3.8 8.1-6.3 13.6-6.3"/>
+                                                <path fill="#fbbc04" d="M46.2 63.8c-9.8 0-17.7-7.9-17.7-17.7 0-4.3 1.5-8.3 4.1-11.3l-28 33.3c4.8 10.6 12.8 19.2 21 29.9l34.1-40.5c-3.3 3.9-8.1 6.3-13.5 6.3"/>
+                                                <path fill="#34a853" d="M59.1 109.2c15.4-24.1 33.3-35 33.3-63 0-7.7-1.9-14.9-5.2-21.3L25.6 98c2.6 3.4 5.3 7.3 7.9 11.3 9.4 14.5 6.8 23.1 12.8 23.1s3.4-8.7 12.8-23.2"/>
+                                            </svg>
+                                            <div className="flex flex-col text-left leading-none">
+                                                <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-foreground">Google Maps</span>
+                                                <span className="text-[9px] font-bold uppercase tracking-wider text-primary">Local 3-Pack</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-col gap-8 lg:flex-row lg:items-center">
+                                            {/* Left Column: Clear Explanation & Real Outcomes */}
+                                            <div className="flex-1 space-y-5">
+                                                <div className="inline-flex max-w-[calc(100%-130px)] sm:max-w-none items-center gap-2 border-2 border-foreground bg-background px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-primary">
+                                                    <MapPin className="h-3.5 w-3.5" />
+                                                    How Local SEO Actually Works
+                                                </div>
+                                                <h3 className="text-2xl font-black uppercase tracking-tight sm:text-3xl md:text-4xl leading-tight">
+                                                    What Actually Happens When Your Business Ranks on Google Maps?
+                                                </h3>
+                                                <p className="text-sm md:text-base leading-relaxed text-foreground/75">
+                                                    When nearby customers search for what you offer (e.g. <em>“laptop repair near me”</em>, <em>“best cafe near me”</em>, or <em>“clinic in Thane”</em>), Google doesn’t show normal website links first — <strong>it displays the Google Maps 3-Pack</strong> right at the top.
+                                                </p>
+
+                                                <div className="grid gap-4 sm:grid-cols-2 pt-2">
+                                                    <div className="border-2 border-foreground bg-background p-4 shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                                                        <div className="flex items-center gap-2 font-black uppercase tracking-wider text-xs text-primary">
+                                                            <span className="flex h-5 w-5 items-center justify-center bg-primary text-primary-foreground text-[10px]">1</span>
+                                                            Top 3 Spot Ranking
+                                                        </div>
+                                                        <p className="mt-1.5 text-xs text-foreground/70 leading-relaxed">
+                                                            Over 70% of all local search clicks go directly to the top 3 Google Maps listings before anyone scrolls further.
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="border-2 border-foreground bg-background p-4 shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                                                        <div className="flex items-center gap-2 font-black uppercase tracking-wider text-xs text-primary">
+                                                            <span className="flex h-5 w-5 items-center justify-center bg-primary text-primary-foreground text-[10px]">2</span>
+                                                            Direct Phone Calls
+                                                        </div>
+                                                        <p className="mt-1.5 text-xs text-foreground/70 leading-relaxed">
+                                                            Customers tap “Call” or “Get Directions” straight from Google Maps without even needing to visit a website.
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="border-2 border-foreground bg-background p-4 shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                                                        <div className="flex items-center gap-2 font-black uppercase tracking-wider text-xs text-primary">
+                                                            <span className="flex h-5 w-5 items-center justify-center bg-primary text-primary-foreground text-[10px]">3</span>
+                                                            5-Star Review Trust
+                                                        </div>
+                                                        <p className="mt-1.5 text-xs text-foreground/70 leading-relaxed">
+                                                            High ratings, genuine reviews, and real customer photos convince new buyers to trust you over older competitors.
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="border-2 border-foreground bg-background p-4 shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                                                        <div className="flex items-center gap-2 font-black uppercase tracking-wider text-xs text-primary">
+                                                            <span className="flex h-5 w-5 items-center justify-center bg-primary text-primary-foreground text-[10px]">4</span>
+                                                            AI & Voice Search
+                                                        </div>
+                                                        <p className="mt-1.5 text-xs text-foreground/70 leading-relaxed">
+                                                            Google Gemini, ChatGPT, and Siri prioritize verified Google Business Profiles when recommending local places.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Right Column: Visual Graphic / Infographic */}
+                                            <div className="w-full lg:w-[48%] shrink-0">
+                                                <div className="group relative overflow-hidden border-[3px] border-foreground bg-background shadow-[5px_5px_0_0_hsl(var(--foreground))]">
+                                                    <img 
+                                                        src={googleMapsExplainerImg} 
+                                                        alt="Infographic showing how Google Maps Local SEO works for local businesses with top 1 ranking, 4.9 star reviews and 3x customer calls" 
+                                                        className="w-full h-auto object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+                                                        loading="eager"
+                                                    />
+                                                    <div className="border-t-2 border-foreground bg-background p-3 flex items-center justify-between">
+                                                        <span className="text-[11px] font-black uppercase tracking-wider text-foreground">
+                                                            Google Maps 3-Pack Breakdown
+                                                        </span>
+                                                        <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
+                                                            3x More Calls & Walk-ins
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </Reveal>
 
                                 <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -463,6 +563,109 @@ export default function ServicesPage() {
                                     <p className="mt-3 max-w-2xl text-base leading-relaxed text-foreground/70">
                                         Slow, outdated, or messy websites quietly push real customers to your competitors. We build fast, high-converting digital storefronts designed for Indian mobile users.
                                     </p>
+                                    <div className="mt-6 flex items-center gap-3">
+                                        <a
+                                            href={PORTFOLIO_URL}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="inline-flex items-center gap-2 border-2 border-foreground bg-background px-4 py-2.5 text-xs font-bold uppercase tracking-[0.12em] text-foreground transition-all hover:bg-foreground hover:text-background active:scale-[0.98]"
+                                        >
+                                            <span>See Live Website Portfolio</span>
+                                            <ArrowUpRight className="h-4 w-4 text-primary" strokeWidth={2.4} />
+                                        </a>
+                                    </div>
+                                </Reveal>
+
+                                {/* Visual Explainer: What A High-Converting Business Website Actually Does */}
+                                <Reveal delay={0.08}>
+                                    <div className="relative mt-12 border-[3px] border-foreground bg-background p-5 sm:p-8 md:p-10 shadow-[6px_6px_0_0_hsl(var(--foreground))]">
+                                        {/* Speed & Conversion Badge in Top Right Corner */}
+                                        <div className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 z-10 inline-flex items-center gap-2 sm:gap-2.5 border-2 border-foreground bg-secondary/30 px-2.5 py-1.5 sm:px-3.5 sm:py-2 shadow-[3px_3px_0_0_hsl(var(--foreground))] transition-transform hover:-translate-y-0.5">
+                                            <Zap className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                                            <div className="flex flex-col text-left leading-none">
+                                                <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-foreground">99+ Speed Score</span>
+                                                <span className="text-[9px] font-bold uppercase tracking-wider text-primary">&lt; 1.2s Load Time</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-col gap-8 lg:flex-row lg:items-center">
+                                            {/* Left Column: Clear Explanation & Real Outcomes */}
+                                            <div className="flex-1 space-y-5">
+                                                <div className="inline-flex max-w-[calc(100%-140px)] sm:max-w-none items-center gap-2 border-2 border-foreground bg-secondary px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-foreground">
+                                                    <Globe className="h-3.5 w-3.5 text-primary" />
+                                                    How A Modern Website Converts Visitors
+                                                </div>
+                                                <h3 className="text-2xl font-black uppercase tracking-tight sm:text-3xl md:text-4xl leading-tight">
+                                                    Why A Slow Or Clunky Website Loses You Real Customers Every Day
+                                                </h3>
+                                                <p className="text-sm md:text-base leading-relaxed text-foreground/75">
+                                                    Over 85% of Indian customers browse local businesses on mobile. If your website takes more than 3 seconds to load or doesn't have an easy WhatsApp button, <strong>they leave and contact your competitor</strong>. Here is how our websites turn visits into booked appointments and store footfalls:
+                                                </p>
+
+                                                <div className="grid gap-4 sm:grid-cols-2 pt-2">
+                                                    <div className="border-2 border-foreground bg-secondary/15 p-4 shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                                                        <div className="flex items-center gap-2 font-black uppercase tracking-wider text-xs text-primary">
+                                                            <span className="flex h-5 w-5 items-center justify-center bg-primary text-primary-foreground text-[10px]">1</span>
+                                                            Lightning Mobile Speed
+                                                        </div>
+                                                        <p className="mt-1.5 text-xs text-foreground/70 leading-relaxed">
+                                                            Loads in under 1.2 seconds even on normal 4G mobile networks — no spinning wheels, no bounced visitors.
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="border-2 border-foreground bg-secondary/15 p-4 shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                                                        <div className="flex items-center gap-2 font-black uppercase tracking-wider text-xs text-primary">
+                                                            <span className="flex h-5 w-5 items-center justify-center bg-primary text-primary-foreground text-[10px]">2</span>
+                                                            Instant WhatsApp Leads
+                                                        </div>
+                                                        <p className="mt-1.5 text-xs text-foreground/70 leading-relaxed">
+                                                            One-tap WhatsApp button pre-fills the customer enquiry so they reach you directly without filling boring forms.
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="border-2 border-foreground bg-secondary/15 p-4 shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                                                        <div className="flex items-center gap-2 font-black uppercase tracking-wider text-xs text-primary">
+                                                            <span className="flex h-5 w-5 items-center justify-center bg-primary text-primary-foreground text-[10px]">3</span>
+                                                            5-Star Review Credibility
+                                                        </div>
+                                                        <p className="mt-1.5 text-xs text-foreground/70 leading-relaxed">
+                                                            Google reviews, patient/client transformations, and real photos establish instant trust within 5 seconds.
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="border-2 border-foreground bg-secondary/15 p-4 shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                                                        <div className="flex items-center gap-2 font-black uppercase tracking-wider text-xs text-primary">
+                                                            <span className="flex h-5 w-5 items-center justify-center bg-primary text-primary-foreground text-[10px]">4</span>
+                                                            Google Maps & SEO Ready
+                                                        </div>
+                                                        <p className="mt-1.5 text-xs text-foreground/70 leading-relaxed">
+                                                            Built with technical SEO schema and interactive Google Map directions embed to guide local walk-in customers.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Right Column: Visual Graphic / Infographic */}
+                                            <div className="w-full lg:w-[48%] shrink-0">
+                                                <div className="group relative overflow-hidden border-[3px] border-foreground bg-background shadow-[5px_5px_0_0_hsl(var(--foreground))]">
+                                                    <img 
+                                                        src={websiteExplainerImg} 
+                                                        alt="Infographic showing high-converting local business website with mobile and desktop mockup, instant WhatsApp chat button, 5-star Google review rating and fast 1.2s loading speed" 
+                                                        className="w-full h-auto object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+                                                        loading="eager"
+                                                    />
+                                                    <div className="border-t-2 border-foreground bg-secondary/30 p-3 flex items-center justify-between">
+                                                        <span className="text-[11px] font-black uppercase tracking-wider text-foreground">
+                                                            High-Converting Digital Storefront
+                                                        </span>
+                                                        <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
+                                                            Mobile-First & 24/7 Leads
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </Reveal>
 
                                 <div className="mt-14 grid gap-8 md:grid-cols-3">
@@ -655,9 +858,111 @@ export default function ServicesPage() {
                                     <p className="mt-3 max-w-2xl text-base leading-relaxed text-foreground/70">
                                         Random boosted posts burn cash without enquiries. We build structured local social media calendars designed for reach, trust, and real footfalls.
                                     </p>
-                                    {/* Scope transparency callout */}
-                                    <div className="mt-6 inline-flex items-center gap-2 border-l-4 border-primary bg-secondary/60 px-4 py-2.5 text-xs font-semibold text-foreground/85">
-                                        <span><strong>Scope Clarity:</strong> Client provides raw video/photos as per our monthly shot list, or on-site shoot coordination is scheduled upfront based on location.</span>
+                                    {/* Visual Explainer: Professional Video Shoot Service */}
+                                    <div className="relative mt-8 border-[3px] border-foreground bg-secondary/20 p-5 sm:p-8 md:p-10 shadow-[6px_6px_0_0_hsl(var(--foreground))]">
+                                        {/* Shoot Badge in Top Right Corner */}
+                                        <div className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 z-10 inline-flex items-center gap-2 sm:gap-2.5 border-2 border-foreground bg-background px-2.5 py-1.5 sm:px-3.5 sm:py-2 shadow-[3px_3px_0_0_hsl(var(--foreground))] transition-transform hover:-translate-y-0.5">
+                                            <Camera className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
+                                            <div className="flex flex-col text-left leading-none">
+                                                <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-foreground">On-Site Shoot</span>
+                                                <span className="text-[9px] font-bold uppercase tracking-wider text-primary">BH Crew & Gear</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex flex-col gap-8 lg:flex-row lg:items-center">
+                                            {/* Left Column: Clear Explanation & Real Outcomes */}
+                                            <div className="flex-1 space-y-5">
+                                                <div className="inline-flex max-w-[calc(100%-140px)] sm:max-w-none items-center gap-2 border-2 border-foreground bg-primary px-3 py-1 text-[11px] font-black uppercase tracking-[0.2em] text-primary-foreground">
+                                                    <Camera className="h-3.5 w-3.5" />
+                                                    High-Priority Service • On-Site Video & Reel Shoots
+                                                </div>
+                                                <h3 className="text-2xl font-black uppercase tracking-tight sm:text-3xl md:text-4xl leading-tight">
+                                                    Haan, Hum Khud Aapke Store / Clinic Par Aakar Professional Shoot Karte Hain!
+                                                </h3>
+                                                <p className="text-sm md:text-base leading-relaxed text-foreground/75">
+                                                    Aksar business owners sochte hain ki hum sirf video edit karte hain — <strong>hum complete on-location shoot service bhi dete hain!</strong>
+                                                    Budget-friendly <strong>Starter plan</strong> mein hum step-by-step hooks aur shot guidance dete hain taaki aap mobile se asani se shoot karke footage bhej sakein.
+                                                    Lekin hamare <strong>Growth & Scale plans</strong> mein Beyond Horizon ki team professional 4K cameras, wireless mics, studio lighting aur complete creative direction ke saath aapke location par aati hai.
+                                                </p>
+
+                                                <div className="grid gap-3.5 sm:grid-cols-2 pt-1">
+                                                    <div className="border-2 border-foreground bg-background p-3.5 shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                                                        <div className="flex items-center gap-2 font-black uppercase tracking-wider text-xs text-primary">
+                                                            <span className="flex h-5 w-5 items-center justify-center bg-primary text-primary-foreground text-[10px]">1</span>
+                                                            4K Cinema Rig & Gimbal
+                                                        </div>
+                                                        <p className="mt-1 text-xs text-foreground/70 leading-relaxed">
+                                                            Ultra-smooth cinematic camera movement for store walkthroughs & product b-rolls.
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="border-2 border-foreground bg-background p-3.5 shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                                                        <div className="flex items-center gap-2 font-black uppercase tracking-wider text-xs text-primary">
+                                                            <span className="flex h-5 w-5 items-center justify-center bg-primary text-primary-foreground text-[10px]">2</span>
+                                                            Studio Wireless Mics
+                                                        </div>
+                                                        <p className="mt-1 text-xs text-foreground/70 leading-relaxed">
+                                                            Crystal clear audio for founder/doctor soundbites, customer feedback & voiceovers.
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="border-2 border-foreground bg-background p-3.5 shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                                                        <div className="flex items-center gap-2 font-black uppercase tracking-wider text-xs text-primary">
+                                                            <span className="flex h-5 w-5 items-center justify-center bg-primary text-primary-foreground text-[10px]">3</span>
+                                                            Studio Lighting Setup
+                                                        </div>
+                                                        <p className="mt-1 text-xs text-foreground/70 leading-relaxed">
+                                                            Softboxes and portable LEDs so your ambient interiors look ultra-clean and modern.
+                                                        </p>
+                                                    </div>
+
+                                                    <div className="border-2 border-foreground bg-background p-3.5 shadow-[3px_3px_0_0_hsl(var(--foreground))]">
+                                                        <div className="flex items-center gap-2 font-black uppercase tracking-wider text-xs text-primary">
+                                                            <span className="flex h-5 w-5 items-center justify-center bg-primary text-primary-foreground text-[10px]">4</span>
+                                                            On-Location Hook Direction
+                                                        </div>
+                                                        <p className="mt-1 text-xs text-foreground/70 leading-relaxed">
+                                                            Hum sirf record nahi karte — viral hooks, dialogues aur natural customer flow direct karte hain.
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex flex-col sm:flex-row sm:items-center gap-3 pt-2">
+                                                    <a
+                                                        href={whatsappLink('Hi Beyond Horizon! I want to enquire about your On-Site Video & Reel Shoot service for my business.')}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        className="inline-flex items-center justify-center gap-2 border-2 border-foreground bg-foreground px-6 py-3 text-xs font-black uppercase tracking-[0.15em] text-background transition-all hover:bg-primary hover:border-primary active:scale-[0.98] shadow-[3px_3px_0_0_hsl(var(--foreground))]"
+                                                    >
+                                                        Enquire Shoot Service
+                                                        <ArrowUpRight className="h-4 w-4" />
+                                                    </a>
+                                                    <span className="text-xs font-bold text-foreground/70">
+                                                        💡 Available in Growth plans or as a standalone add-on!
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            {/* Right Column: Visual Graphic / Infographic */}
+                                            <div className="w-full lg:w-[48%] shrink-0">
+                                                <div className="group relative overflow-hidden border-[3px] border-foreground bg-background shadow-[5px_5px_0_0_hsl(var(--foreground))]">
+                                                    <img 
+                                                        src={beyondHorizonShootImg} 
+                                                        alt="Beyond Horizon videographer wearing black branded t-shirt shooting on location in an Indian business with cinema camera and gimbal" 
+                                                        className="w-full h-auto object-cover object-center transition-transform duration-500 group-hover:scale-[1.02]"
+                                                        loading="eager"
+                                                    />
+                                                    <div className="border-t-2 border-foreground bg-background p-3 flex items-center justify-between">
+                                                        <span className="text-[11px] font-black uppercase tracking-wider text-foreground">
+                                                            Beyond Horizon Production Crew
+                                                        </span>
+                                                        <span className="text-[10px] font-bold uppercase tracking-wider text-primary">
+                                                            🎥 Real On-Site Shoot
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </Reveal>
 
@@ -702,9 +1007,9 @@ export default function ServicesPage() {
                                                         <Check className="h-4 w-4 shrink-0 text-primary" strokeWidth={3} />
                                                         <span>Monthly reach, engagement & follower growth report</span>
                                                     </li>
-                                                    <li className="flex items-start gap-2 text-muted-foreground">
-                                                        <span className="font-bold text-primary">·</span>
-                                                        <span>Raw video/photos supplied by client per script</span>
+                                                    <li className="flex items-start gap-2 text-foreground/80">
+                                                        <Video className="h-4 w-4 shrink-0 text-foreground/60" strokeWidth={2.2} />
+                                                        <span><strong>Video Shoot:</strong> Full script & hook guide (Client records via phone) · <em>On-site shoot available as add-on</em></span>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -753,7 +1058,7 @@ export default function ServicesPage() {
                                                     </li>
                                                     <li className="flex items-start gap-2">
                                                         <Check className="h-4 w-4 shrink-0 text-primary" strokeWidth={3} />
-                                                        <span>Monthly shoot coordination & detailed shot list plan</span>
+                                                        <span><strong>Professional On-Site Shoot:</strong> Scheduled shoots with lighting, mic & direct on-location direction</span>
                                                     </li>
                                                     <li className="flex items-start gap-2">
                                                         <Check className="h-4 w-4 shrink-0 text-primary" strokeWidth={3} />
@@ -801,6 +1106,10 @@ export default function ServicesPage() {
                                                     </div>
                                                 </div>
                                                 <ul className="mt-6 space-y-3 text-xs font-semibold text-foreground/80">
+                                                    <li className="flex items-start gap-2">
+                                                        <Check className="h-4 w-4 shrink-0 text-primary" strokeWidth={3} />
+                                                        <span><strong>Full On-Site Production:</strong> Multi-day shoots, cinematic reels, store walkthroughs & ad assets</span>
+                                                    </li>
                                                     <li className="flex items-start gap-2">
                                                         <Check className="h-4 w-4 shrink-0 text-primary" strokeWidth={3} />
                                                         <span>20+ High-impact Reels & daily story rhythm</span>
@@ -929,6 +1238,14 @@ export default function ServicesPage() {
                                     <a href="#get-attention" className="font-semibold text-background/70 transition-colors hover:text-primary">
                                         Social & Reels
                                     </a>
+                                    <a
+                                        href={PORTFOLIO_URL}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="font-semibold text-primary transition-colors hover:underline"
+                                    >
+                                        Our Portfolio ↗
+                                    </a>
                                     <Link to="/#audit" className="font-semibold text-background/70 transition-colors hover:text-primary">
                                         Free Audit
                                     </Link>
@@ -966,7 +1283,6 @@ export default function ServicesPage() {
                         </div>
                     </footer>
                 </div>
-            </div>
-        </>
+            </>
     );
 }

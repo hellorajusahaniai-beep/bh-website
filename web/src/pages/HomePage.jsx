@@ -1,565 +1,1533 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import { Search, MapPin, Instagram, Facebook, Globe, MessageCircle, Star, ArrowRight, ArrowUpRight, Check, Megaphone, Camera, PenTool, LayoutGrid, Sparkles, Phone } from 'lucide-react';
+import { 
+    Search, MapPin, Instagram, Globe, MessageCircle, Star, ArrowRight, ArrowUpRight, 
+    Check, X, Megaphone, Camera, Sparkles, Phone, Zap, ShieldCheck, Video, 
+    Smartphone, Users, Clock, Utensils, Scissors, Stethoscope, ShoppingBag, 
+    Briefcase, Dumbbell, Laptop, Eye, HelpCircle, ArrowDownRight, Award
+} from 'lucide-react';
 import Reveal from '@/components/Reveal';
-import CountUp from '@/components/CountUp';
 import Seo from '@/components/Seo';
-import dentalImage from '@/assets/dental-reforms.jpg';
+import StoryHero from '@/components/StoryHero';
+
+// Real Client & Explainer Assets
+import googleMapsExplainerImg from '@/assets/google-maps-seo-explainer.jpg';
+import websiteExplainerImg from '@/assets/website-conversion-explainer.jpg';
+import beyondHorizonShootImg from '@/assets/beyond-horizon-video-shoot.jpg';
+import dentalReelImg from '@/assets/dental-reel-cover.png';
+import dentalCarouselImg from '@/assets/dental-carousel-slide.png';
+import dargarQrImg from '@/assets/dargar-review-qr.png';
+import siddhiDentalImg from '@/assets/siddhi-dental-treating.jpg';
+import dargarCommImg from '@/assets/dargar-communication.png';
+import gcsImg from '@/assets/global-computer-solution.png';
+import localCustomerAdsImg from '@/assets/local-customer-ads.jpg';
+import whatsappCrmImg from '@/assets/whatsapp-crm-automation.jpg';
+import dentalTreatmentImg from '@/assets/dental-reforms-treatment.jpg';
+import dentalHappyPatientImg from '@/assets/dental-reforms-happy-patient.jpg';
+
 const WHATSAPP_NUMBER = '919225301670';
+const PORTFOLIO_URL = 'https://beyond-horizon-portfolio.pages.dev';
 const GOOGLE_FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzWesK8MJo2oeqR8ZtIMuXj7DWYU5eqPxIpVTn-wwq5PuVXxn4agBjS96rqkDqh-Evr/exec';
-const HERO_IMAGE = 'https://images.hostinger.com/31ba9dfc-bb01-4f4d-9857-e71a5f58dce9.png';
-const DENTAL_IMAGE = dentalImage;
-const SHOP_IMAGE = 'https://images.hostinger.com/ea829d74-0677-4306-ab81-f93e15f2fc11.png';
-const FRAME = 'p-2.5 md:p-3.5';
-const FRAME_INSET = 'top-2.5 bottom-2.5 left-2.5 right-2.5 md:top-3.5 md:bottom-3.5 md:left-3.5 md:right-3.5';
-const problems = [{
-    title: 'You’re invisible on Google',
-    desc: 'Customers nearby search for what you sell — and find someone else.'
-}, {
-    title: 'Social profiles gone quiet',
-    desc: 'An inactive Instagram or Facebook page makes a good business look closed.'
-}, {
-    title: 'A website that doesn’t build trust',
-    desc: 'Slow, outdated or missing websites quietly push real customers away.'
-}, {
-    title: 'Competitors appear first',
-    desc: 'They’re not better than you. They’re just easier to find online.'
-}, {
-    title: 'Ad money, poor-quality leads',
-    desc: 'Boosted posts and random ads burn budget without bringing real enquiries.'
-}, {
-    title: 'Everything falls on you',
-    desc: 'You run the business all day — who has time to also run the internet?'
-}];
-const services = [{
-    word: 'GET FOUND',
-    tag: 'SEO + Google + Maps + AI Search',
-    cta: 'Explore Packages',
-    link: '/services#get-found',
-    items: ['Local SEO', 'Google Business Profile', 'Google Maps optimisation', 'Local keyword strategy', 'Website SEO', 'AI search visibility', 'Reviews & reputation strategy']
-}, {
-    word: 'LOOK PROFESSIONAL',
-    tag: 'Branding + Website + Design + Photography',
-    cta: 'Explore Packages',
-    link: '/services#look-professional',
-    items: ['Website development', 'Landing pages', 'Branding & identity', 'Graphic design', 'Business photography', 'Creative assets', 'Website optimisation']
-}, {
-    word: 'GET ATTENTION',
-    tag: 'Instagram + Facebook + Content + Reels + UGC',
-    cta: 'Explore Packages',
-    link: '/services#get-attention',
-    items: ['Instagram & Facebook management', 'Content strategy & calendars', 'Reels & short-form video', 'UGC & creator content', 'Community engagement', 'Offers & campaign creatives']
-}];
-const growthEngines = [{
-    icon: Megaphone,
-    label: 'Paid Advertising'
-}, {
-    icon: MessageCircle,
-    label: 'WhatsApp Marketing'
-}, {
-    icon: LayoutGrid,
-    label: 'CRM & Follow-ups'
-}, {
-    icon: Sparkles,
-    label: 'Automation'
-}];
-const steps = [{
-    n: '01',
-    title: 'Make you visible',
-    desc: 'Show up on Google, Maps and AI search when locals look for you.'
-}, {
-    n: '02',
-    title: 'Make you look professional',
-    desc: 'A brand, website and photos that earn trust at first glance.'
-}, {
-    n: '03',
-    title: 'Get attention',
-    desc: 'Content, reels and ads that put your business in local feeds.'
-}, {
-    n: '04',
-    title: 'Generate customers',
-    desc: 'Turn attention into calls, WhatsApp messages and walk-ins.'
-}, {
-    n: '05',
-    title: 'Automate & grow',
-    desc: 'CRM, follow-ups and systems that keep growth running without you.'
-}];
-const benefits = ['We speak local business, not agency jargon', 'One partner for everything digital — no juggling freelancers', 'Focused on enquiries and customers, not vanity metrics', 'Transparent work, honest timelines, plain-English reports', 'Built for Indian markets, budgets and customer behaviour'];
-const auditIncludes = ['Google & Maps visibility check', 'Website and social profile review', 'Competitor comparison in your area', 'A clear 90-day growth action plan'];
+
 function whatsappLink(message) {
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
-function Frame() {
-    return <>
-        <div aria-hidden="true" className={`pointer-events-none fixed ${FRAME_INSET} z-[80] border-[3px] border-foreground`} />
-        <div aria-hidden="true" className="pointer-events-none fixed left-2.5 top-2.5 z-[81] h-3 w-3 -translate-x-1/2 -translate-y-1/2 bg-primary md:left-3.5 md:top-3.5" />
-    </>;
-}
+
+// =========================================================================
+// 1. HEADER (Navigation)
+// =========================================================================
 function Header() {
-    const links = [{
-        href: '#problem',
-        label: 'The Problem'
-    }, {
-        href: '#services',
-        label: 'Services'
-    }, {
-        href: '/services',
-        label: 'Pricing'
-    }, {
-        href: '#process',
-        label: 'Process'
-    }, {
-        href: '#why-us',
-        label: 'Why Us'
-    }];
-    return <header className="sticky top-2.5 z-[70] border-b-[3px] border-foreground bg-background md:top-3.5">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
-            <a href="#top" className="flex items-baseline gap-2">
-                <span className="stretch-wide text-lg font-black uppercase leading-none tracking-tight md:text-xl">
-                    Beyond Horizon
-                </span>
-                <span className="hidden text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground sm:inline">
-                    Growth Partner
-                </span>
-            </a>
-            <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
-                {links.map(l => (
-                    l.href.startsWith('/') ? (
-                        <Link key={l.href} to={l.href} className="text-xs font-semibold uppercase tracking-[0.15em] text-foreground/70 transition-colors hover:text-primary">
-                            {l.label}
-                        </Link>
-                    ) : (
-                        <a key={l.href} href={l.href} className="text-xs font-semibold uppercase tracking-[0.15em] text-foreground/70 transition-colors hover:text-primary">
-                            {l.label}
-                        </a>
-                    )
-                ))}
-            </nav>
-            <a href={whatsappLink('Hi Beyond Horizon! I’d like to talk about growing my business online.')} target="_blank" rel="noreferrer" className="inline-flex min-h-[44px] items-center gap-2 bg-foreground px-4 py-2 text-xs font-bold uppercase tracking-[0.15em] text-background transition-colors hover:bg-primary active:scale-[0.98]">
-                <MessageCircle className="h-4 w-4" strokeWidth={2.2} />
-                WhatsApp Us
-            </a>
-        </div>
-    </header>;
+    const links = [
+        { href: '#problem', label: 'The Problem' },
+        { href: '#who-we-help', label: 'Who We Help' },
+        { href: '#services', label: 'What We Do' },
+        { href: '#work', label: 'Real Work' },
+        { href: '#pricing', label: 'Pricing' },
+        { href: '#process', label: 'How It Works' },
+        { href: PORTFOLIO_URL, label: 'Live Portfolio ↗', isExternal: true },
+    ];
+
+    return (
+        <header className="sticky top-0 z-[70] border-b-[3px] border-foreground bg-background">
+            <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
+                <a href="#top" className="flex items-baseline gap-2">
+                    <span className="stretch-wide whitespace-nowrap text-base font-black uppercase leading-none tracking-tight sm:text-lg md:text-xl">
+                        Beyond Horizon
+                    </span>
+                    <span className="hidden text-[10px] font-bold uppercase tracking-[0.2em] text-primary sm:inline">
+                        Growth Partner
+                    </span>
+                </a>
+
+                <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
+                    {links.map(l => (
+                        l.isExternal ? (
+                            <a
+                                key={l.label}
+                                href={l.href}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-xs font-bold uppercase tracking-[0.14em] text-primary transition-colors hover:text-foreground"
+                            >
+                                {l.label}
+                            </a>
+                        ) : (
+                            <a
+                                key={l.label}
+                                href={l.href}
+                                className="text-xs font-bold uppercase tracking-[0.14em] text-foreground/75 transition-colors hover:text-primary"
+                            >
+                                {l.label}
+                            </a>
+                        )
+                    ))}
+                </nav>
+
+                <a
+                    href={whatsappLink('Hi Beyond Horizon! I want to talk about growing my local business.')}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex min-h-[44px] items-center gap-2 border-2 border-foreground bg-foreground px-4 py-2 text-xs font-black uppercase tracking-[0.15em] text-background transition-colors hover:bg-primary hover:border-primary active:scale-[0.98]"
+                >
+                    <MessageCircle className="h-4 w-4" strokeWidth={2.4} />
+                    <span>WhatsApp Us</span>
+                </a>
+            </div>
+        </header>
+    );
 }
+
+// =========================================================================
+// 2. HERO + HERO INTRO ACTION STRIP
+// =========================================================================
 function Hero() {
-    const chips = [{
-        icon: Search,
-        label: 'Google Search',
-        pos: 'left-[2%] top-[12%]',
-        delay: '0s'
-    }, {
-        icon: MapPin,
-        label: 'Google Maps',
-        pos: 'right-[3%] top-[8%]',
-        delay: '0.8s'
-    }, {
-        icon: Instagram,
-        label: 'Instagram',
-        pos: 'left-[4%] bottom-[22%]',
-        delay: '1.6s'
-    }, {
-        icon: Facebook,
-        label: 'Facebook',
-        pos: 'right-[5%] bottom-[30%]',
-        delay: '2.2s'
-    }, {
-        icon: MessageCircle,
-        label: 'New enquiry on WhatsApp',
-        pos: 'right-[10%] bottom-[8%]',
-        delay: '1.1s'
-    }, {
-        icon: Star,
-        label: '4.9 rating · 120+ reviews',
-        pos: 'left-[12%] top-[52%] hidden md:flex',
-        delay: '2.8s'
-    }];
-    return <section id="top" className="relative overflow-hidden bg-background">
-        <div className="mx-auto max-w-6xl px-4 pb-10 pt-14 md:px-8 md:pt-20">
-            <Reveal>
-                <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
-                    <span className="inline-block h-2.5 w-2.5 bg-primary" aria-hidden="true" />
-                    Digital Growth for Local Businesses
-                </p>
-            </Reveal>
-            <Reveal delay={0.08}>
-                <h1 className="mt-6 text-[clamp(2.6rem,7.5vw,6.5rem)] font-black uppercase leading-[0.95] tracking-tight">
-                    Your Business
-                    <br />
-                    Deserves to Be{' '}
-                    <span className="stretch-wide text-primary">Seen</span>
-                    <br />
-                    Online.
-                </h1>
-            </Reveal>
-            <Reveal delay={0.16}>
-                <p className="mt-6 max-w-xl text-base leading-relaxed text-foreground/75 md:text-lg">
-                    We help local businesses get found on Google, look professional on
-                    social media, and turn online attention into real customers.
-                </p>
-            </Reveal>
-            <Reveal delay={0.24}>
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-                    <a href="#contact" className="inline-flex min-h-[48px] items-center justify-center gap-2 bg-primary px-7 py-3 text-sm font-bold uppercase tracking-[0.12em] text-primary-foreground transition-colors hover:bg-foreground active:scale-[0.98]">
-                        Get Your Free Growth Audit
-                        <ArrowRight className="h-4 w-4" strokeWidth={2.4} />
-                    </a>
-                    <a href="#contact" className="inline-flex min-h-[48px] items-center justify-center gap-2 border-[3px] border-foreground px-7 py-3 text-sm font-bold uppercase tracking-[0.12em] text-foreground transition-colors hover:bg-foreground hover:text-background active:scale-[0.98]">
-                        Talk to Us
-                    </a>
-                </div>
-            </Reveal>
-            <Reveal delay={0.3}>
-                <p className="mt-5 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                    Built for local businesses. Focused on real growth.
-                </p>
-            </Reveal>
-        </div>
+    return (
+        <>
+            <StoryHero />
 
-        {/* Oversized media, cropped past its container, with floating digital cues */}
-        <Reveal delay={0.15} y={40}>
-            <div className="relative mx-auto max-w-6xl px-4 md:px-8">
-                <div className="relative -mx-4 md:-mx-16">
-                    <img src={HERO_IMAGE} alt="A local restaurant owner in Mumbai standing proudly at the entrance of his warmly lit eatery" className="h-[52vh] w-full object-cover object-center md:h-[68vh]" loading="eager" />
-                    {chips.map(c => <div key={c.label} className={`bh-float absolute ${c.pos} flex items-center gap-2 border-2 border-foreground bg-background px-3 py-2 text-[11px] font-bold uppercase tracking-wide shadow-[4px_4px_0_0_hsl(var(--foreground))] transition-transform duration-200 hover:scale-110`} style={{
-                        animationDelay: c.delay
-                    }}>
-                        <c.icon className="h-4 w-4 text-primary" strokeWidth={2.4} />
-                        {c.label}
-                    </div>)}
-                </div>
-            </div>
-        </Reveal>
-
-        {/* Signature cropped word */}
-        <div aria-hidden="true" className="pointer-events-none relative select-none overflow-hidden">
-            <p className="stretch-wide -mb-[0.23em] whitespace-nowrap text-center text-[clamp(4rem,14vw,13rem)] font-black uppercase leading-none tracking-tight text-foreground/[0.07]">
-                Horizon Horizon
-            </p>
-        </div>
-    </section>;
-}
-function Problem() {
-    return <section id="problem" className="scroll-mt-24 bg-foreground text-background">
-        <div className="mx-auto max-w-6xl px-4 py-20 md:px-8 md:py-28">
-            <Reveal>
-                <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
-                    The Problem
-                </p>
-                <h2 className="mt-4 max-w-3xl text-[clamp(2rem,5vw,4rem)] font-black uppercase leading-[1.02] tracking-tight">
-                    Great Business.
-                    <br />
-                    <span className="text-background/40">Weak Online Presence?</span>
-                </h2>
-                <p className="mt-5 max-w-xl text-base leading-relaxed text-background/65">
-                    You’ve built something worth finding. But online, none of that
-                    quality shows. Sound familiar?
-                </p>
-            </Reveal>
-            <div className="mt-12 border-t border-background/15">
-                {problems.map((p, i) => <Reveal key={p.title} delay={i * 0.05}>
-                    <div className="group flex items-start gap-5 border-b border-background/15 py-6 transition-colors duration-200 hover:bg-background/5 md:items-center md:gap-10">
-                        <span className="stretch-wide pt-1 text-sm font-black text-primary md:pt-0 md:text-base">
-                            {String(i + 1).padStart(2, '0')}
-                        </span>
-                        <div className="flex flex-1 flex-col gap-1 md:flex-row md:items-baseline md:justify-between md:gap-8">
-                            <h3 className="text-lg font-bold uppercase tracking-tight transition-colors duration-200 group-hover:text-primary md:text-2xl">
-                                {p.title}
-                            </h3>
-                            <p className="max-w-md text-sm leading-relaxed text-background/60">
-                                {p.desc}
-                            </p>
-                        </div>
-                    </div>
-                </Reveal>)}
-            </div>
-            <Reveal delay={0.1}>
-                <p className="mt-10 max-w-2xl text-base leading-relaxed text-background/70">
-                    None of this means your business isn’t good enough. It means your
-                    growth needs a partner.{' '}
-                    <a href="#services" className="font-bold text-primary underline decoration-2 underline-offset-4 transition-colors hover:text-background">
-                        See how we fix it
-                    </a>
-                </p>
-            </Reveal>
-        </div>
-    </section>;
-}
-function Services() {
-    return <section id="services" className="scroll-mt-24 bg-background">
-        <div className="mx-auto max-w-6xl px-4 py-20 md:px-8 md:py-28">
-            <Reveal>
-                <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
-                    What We Do
-                </p>
-                <h2 className="mt-4 max-w-4xl text-[clamp(2rem,5vw,4rem)] font-black uppercase leading-[1.02] tracking-tight">
-                    Everything You Need to{' '}
-                    <span className="text-primary">Grow Online.</span>
-                </h2>
-                <p className="mt-5 max-w-xl text-base leading-relaxed text-foreground/70">
-                    One team, one plan, everything handled — so you can focus on
-                    running your business.
-                </p>
-            </Reveal>
-
-            <div className="mt-14 space-y-0 border-t-[3px] border-foreground">
-                {services.map((s, i) => <Reveal key={s.word} delay={i * 0.06}>
-                    <div className="group grid gap-6 border-b-[3px] border-foreground py-10 transition-colors duration-300 hover:bg-foreground md:grid-cols-12 md:gap-8 md:py-12">
-                        <div className="md:col-span-5">
-                            <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">
-                                {String(i + 1).padStart(2, '0')} — {s.tag}
+            {/* Immediately Below Hero: Clear 30-Second Positioning & Single Main CTAs */}
+            <section className="border-b-[3px] border-foreground bg-secondary/30 py-8 md:py-10">
+                <div className="mx-auto max-w-6xl px-4 md:px-8">
+                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                        <div className="max-w-2xl">
+                            <span className="inline-block border-2 border-foreground bg-primary px-2.5 py-0.5 text-[11px] font-black uppercase tracking-[0.2em] text-primary-foreground shadow-[2px_2px_0_0_hsl(var(--foreground))] mb-2">
+                                For Local Businesses in India
                             </span>
-                            <h3 className="stretch-wide mt-3 text-[clamp(1.8rem,4vw,3.2rem)] font-black uppercase leading-[0.95] tracking-tight transition-colors duration-300 group-hover:text-background">
-                                {s.word}
-                            </h3>
-                            <Link to={s.link} className="mt-5 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.12em] text-foreground underline decoration-primary decoration-2 underline-offset-4 transition-colors duration-300 group-hover:text-background">
-                                {s.cta}
-                                <ArrowUpRight className="h-4 w-4 text-primary" strokeWidth={2.6} />
-                            </Link>
+                            <h2 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight text-foreground leading-tight">
+                                Your Business Deserves To Be Found.
+                            </h2>
+                            <p className="mt-2 text-xs sm:text-sm md:text-base font-semibold text-foreground/75 leading-relaxed">
+                                We help dentists, salons, gyms, restaurants & retail stores get found on Google, look professional online, and turn attention into real customer enquiries.
+                            </p>
                         </div>
-                        <ul className="grid gap-x-8 gap-y-2.5 sm:grid-cols-2 md:col-span-7 md:content-center">
-                            {s.items.map(item => <li key={item} className="flex items-center gap-2.5 text-sm font-medium text-foreground/75 transition-colors duration-300 group-hover:text-background/75">
-                                <Check className="h-4 w-4 shrink-0 text-primary" strokeWidth={3} />
-                                {item}
-                            </li>)}
-                        </ul>
-                    </div>
-                </Reveal>)}
-            </div>
-
-            <Reveal delay={0.1}>
-                <div className="mt-10 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-                    <p className="text-sm font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                        Plus, growth engines —
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                        {growthEngines.map(g => <span key={g.label} className="inline-flex items-center gap-2 border-2 border-foreground px-4 py-2.5 text-xs font-bold uppercase tracking-[0.12em] transition-colors hover:bg-primary hover:text-primary-foreground hover:border-primary">
-                            <g.icon className="h-4 w-4" strokeWidth={2.4} />
-                            {g.label}
-                        </span>)}
+                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+                            <a
+                                href="#contact"
+                                className="inline-flex min-h-[50px] items-center justify-center gap-2 border-2 border-foreground bg-primary px-6 py-3 text-xs sm:text-sm font-black uppercase tracking-[0.14em] text-primary-foreground shadow-[4px_4px_0_0_hsl(var(--foreground))] transition-all hover:bg-foreground hover:text-background active:scale-[0.98]"
+                            >
+                                <span>Get My Free Growth Audit</span>
+                                <ArrowRight className="h-4 w-4" strokeWidth={2.6} />
+                            </a>
+                            <a
+                                href={whatsappLink('Hi Beyond Horizon! I’d like to see how you can help my business grow.')}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex min-h-[50px] items-center justify-center gap-2 border-2 border-foreground bg-background px-6 py-3 text-xs sm:text-sm font-black uppercase tracking-[0.14em] text-foreground shadow-[4px_4px_0_0_hsl(var(--foreground))] transition-all hover:bg-secondary active:scale-[0.98]"
+                            >
+                                <MessageCircle className="h-4 w-4 text-primary" strokeWidth={2.4} />
+                                <span>WhatsApp Us</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </Reveal>
-        </div>
-    </section>;
+            </section>
+        </>
+    );
 }
-function Process() {
-    return <section id="process" className="scroll-mt-24 bg-foreground text-background">
-        <div className="mx-auto max-w-6xl px-4 py-20 md:px-8 md:py-28">
-            <Reveal>
-                <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
-                    How Growth Happens
-                </p>
-                <h2 className="mt-4 max-w-3xl text-[clamp(2rem,5vw,4rem)] font-black uppercase leading-[1.02] tracking-tight">
-                    A Simple Process.
-                    <br />
-                    <span className="text-background/40">Built Around You.</span>
-                </h2>
-            </Reveal>
-            <div className="mt-14 grid gap-px bg-background/15 sm:grid-cols-2 lg:grid-cols-5">
-                {steps.map((s, i) => <Reveal key={s.n} delay={i * 0.07} className="h-full">
-                    <div className="group flex h-full flex-col bg-foreground p-6 transition-colors duration-300 hover:bg-primary md:p-7">
-                        <span className="stretch-wide text-4xl font-black text-primary transition-colors duration-300 group-hover:text-primary-foreground md:text-5xl">
-                            {s.n}
+
+// =========================================================================
+// 3. THE PROBLEM (Grounded Reality - No Unverified Claims)
+// =========================================================================
+function Problem() {
+    const [activeTab, setActiveTab] = useState(0);
+
+    const categories = [
+        {
+            id: 'clinic',
+            name: 'Dentists & Clinics',
+            icon: Stethoscope,
+            leak: 'Patients in your locality search for toothache, root canal, or teeth cleaning on Google Maps. If your clinic profile has few reviews, old photos, or an inactive page, they call the clinic down the street.',
+            fix: [
+                'Verified Google Maps profile optimized for local patient searches',
+                'Patient 5-star review collection system for your reception counter',
+                'Clean, fast mobile landing page with 1-tap WhatsApp consultation booking',
+                'Informational treatment reels explaining procedures simply'
+            ],
+            auditPrefill: 'Hi Beyond Horizon! I run a Dental / Healthcare Clinic. I want more nearby patients and better Google Maps ranking. Can you audit my clinic?'
+        },
+        {
+            id: 'salon',
+            name: 'Salons & Spas',
+            icon: Scissors,
+            leak: 'People check Instagram before booking haircuts, bridal makeup, or skin treatments. Inactive feeds or blurry posters make high-paying clients choose the trending salon nearby.',
+            fix: [
+                'On-location 4K transformation reels showing your real work & stylists',
+                'Google Maps optimization so people searching "best salon near me" see you first',
+                'Countertop Google review QR stands to collect 5-star reviews daily',
+                'Direct 1-tap WhatsApp appointment scheduling flow'
+            ],
+            auditPrefill: 'Hi Beyond Horizon! I run a Salon / Spa. I want consistent Instagram Reels and more appointment bookings. Can you audit my salon?'
+        },
+        {
+            id: 'restaurant',
+            name: 'Restaurants & Cafes',
+            icon: Utensils,
+            leak: 'Diners search for places to eat nearby on weekends. An unoptimized Google listing with outdated menus or poor photos pushes diners straight into your competitor 300 meters away.',
+            fix: [
+                'Google Maps 3-Pack ranking optimization for high-intent food searches',
+                'Mouth-watering 4K food & ambiance video reels shot directly at your venue',
+                'Clear digital menu with 1-tap WhatsApp table booking & delivery enquiries',
+                'Active weekend promotional campaigns targeting nearby residents'
+            ],
+            auditPrefill: 'Hi Beyond Horizon! I run a Restaurant / Cafe. I want more weekend diners and better Google Maps visibility. Can you audit my restaurant?'
+        },
+        {
+            id: 'gym',
+            name: 'Gyms & Fitness',
+            icon: Dumbbell,
+            leak: 'Locals looking to get fit search Google reviews and check Instagram for gym vibes. Zero active reels, confusing pricing, or no easy trial booking means walk-ins walk elsewhere.',
+            fix: [
+                'High-energy on-site workout & facility video reels showing your equipment',
+                'Member transformation spotlights that build instant local authority',
+                'Targeted local Meta ads focused on a 3km radius for Free 1-Day Trial Passes',
+                'WhatsApp enquiry follow-up pipeline so trial leads don’t go cold'
+            ],
+            auditPrefill: 'Hi Beyond Horizon! I run a Gym / Fitness Center. I want more trial enquiries and strong local social media. Can you audit my gym?'
+        },
+        {
+            id: 'retail',
+            name: 'Retail & Electronics',
+            icon: ShoppingBag,
+            leak: 'Shoppers check online first to see if your store is open and what brands you carry. Without updated products or visual proof, they default to Amazon or the shopping mall.',
+            fix: [
+                'Updated Google Business product catalog with store directions & hours',
+                'Product unboxing and store walk-through reels on Instagram',
+                'Google Review QR standees on your cash billing counter',
+                'Direct WhatsApp catalog for instant customer stock & price queries'
+            ],
+            auditPrefill: 'Hi Beyond Horizon! I own a Retail / Electronics Store. I want more in-store footfall and local online presence. Can you audit my store?'
+        },
+        {
+            id: 'services',
+            name: 'Local Services',
+            icon: Briefcase,
+            leak: 'When someone needs CCTV setup, laptop repair, tax filing, or interior design, they need trust immediately. If your phone number isn’t verified with reviews, they call the first result.',
+            fix: [
+                'Top-ranking local search presence for your specific service keywords',
+                'Fast, professional mobile landing page that earns trust in 3 seconds',
+                'Instant WhatsApp enquiry notifications sent directly to your phone',
+                'Customer testimonial showcases that prove your reliability'
+            ],
+            auditPrefill: 'Hi Beyond Horizon! I provide Local Professional Services. I want more inbound calls and a professional online presence. Can you audit my business?'
+        }
+    ];
+
+    const current = categories[activeTab];
+
+    return (
+        <section id="problem" className="scroll-mt-24 border-b-[3px] border-foreground bg-background py-16 md:py-24">
+            <div className="mx-auto max-w-6xl px-4 md:px-8">
+                {/* Header */}
+                <Reveal>
+                    <div className="border-b-[3px] border-foreground pb-6">
+                        <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
+                            The Local Reality
                         </span>
-                        <h3 className="mt-6 text-base font-bold uppercase tracking-tight md:text-lg">
-                            {s.title}
-                        </h3>
-                        <p className="mt-2 text-sm leading-relaxed text-background/60 transition-colors duration-300 group-hover:text-primary-foreground/85">
-                            {s.desc}
+                        <h2 className="mt-3 text-[clamp(1.8rem,4.5vw,3.5rem)] font-black uppercase leading-[1.05] tracking-tight">
+                            Your Customers Are{' '}
+                            <span className="text-primary">Already Searching.</span>
+                        </h2>
+                        <p className="mt-2 text-sm sm:text-base leading-relaxed text-foreground/75 font-medium max-w-3xl">
+                            When nearby people search on Google Maps & Instagram, who are they finding — your business, or the competitor down the road?
                         </p>
                     </div>
-                </Reveal>)}
-            </div>
-        </div>
-    </section>;
-}
-function AuditCta() {
-    return <section id="audit" className="relative scroll-mt-24 overflow-hidden bg-primary text-primary-foreground">
-        <div className="mx-auto max-w-6xl px-4 py-20 md:px-8 md:py-28">
-            <div className="grid items-start gap-10 md:grid-cols-2">
-                <Reveal>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.25em] md:text-xs">
-                        Free Growth Audit
-                    </p>
-                    <h2 className="mt-4 text-[clamp(2rem,5vw,4rem)] font-black uppercase leading-[1.02] tracking-tight">
-                        Not Sure Where to Start? Start Here — Free.
-                    </h2>
-                    <p className="mt-5 max-w-md text-base leading-relaxed text-primary-foreground/85">
-                        We review your Google presence, social media, website and ads —
-                        and show you exactly what’s blocking your growth. No jargon, no
-                        obligation.
-                    </p>
-                    <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                        <a href="#contact" className="inline-flex min-h-[48px] items-center justify-center gap-2 bg-foreground px-7 py-3 text-sm font-bold uppercase tracking-[0.12em] text-background transition-transform hover:-translate-y-0.5 active:scale-[0.98]">
-                            Get Your Free Growth Audit
-                            <ArrowRight className="h-4 w-4" strokeWidth={2.4} />
-                        </a>
-                        <a href={whatsappLink('Hi Beyond Horizon! I’d like my free growth audit.')} target="_blank" rel="noreferrer" className="inline-flex min-h-[48px] items-center justify-center gap-2 border-[3px] border-primary-foreground px-7 py-3 text-sm font-bold uppercase tracking-[0.12em] transition-colors hover:bg-primary-foreground hover:text-primary active:scale-[0.98]">
-                            <MessageCircle className="h-4 w-4" strokeWidth={2.4} />
-                            WhatsApp Us
-                        </a>
-                    </div>
                 </Reveal>
-                <Reveal delay={0.12}>
-                    <ul className="divide-y divide-primary-foreground/25 border-y-2 border-primary-foreground/40">
-                        {auditIncludes.map(item => <li key={item} className="flex items-center gap-3 py-4 text-sm font-semibold uppercase tracking-wide md:text-base">
-                            <Check className="h-5 w-5 shrink-0" strokeWidth={3} />
-                            {item}
-                        </li>)}
-                    </ul>
-                    <p className="mt-4 text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground/70">
-                        Delivered within 48 hours. Plain English. Zero pressure.
-                    </p>
-                </Reveal>
-            </div>
-        </div>
-    </section>;
-}
-function WhyUs() {
-    return <section id="why-us" className="scroll-mt-24 bg-background">
-        <div className="mx-auto max-w-6xl px-4 py-20 md:px-8 md:py-28">
-            <div className="grid items-start gap-12 lg:grid-cols-2">
-                <Reveal>
-                    <div className="relative">
-                        <img src={DENTAL_IMAGE} alt="Dental Reforms clinic team and patient in Thane" className="aspect-[3/4] w-full border-[3px] border-foreground object-cover object-top md:-ml-8 md:w-[calc(100%+2rem)] md:max-w-none" loading="lazy" />
-                        <div className="absolute -bottom-5 -right-2 border-2 border-foreground bg-background px-4 py-3 shadow-[4px_4px_0_0_hsl(var(--foreground))] md:right-6">
-                            <p className="text-[11px] font-bold uppercase tracking-[0.15em]">
-                                Dental Reforms · Thane
-                            </p>
-                            <p className="mt-0.5 flex items-center gap-1 text-xs font-semibold text-primary">
-                                <Star className="h-3.5 w-3.5 fill-primary" />
-                                Fully booked appointments
-                            </p>
+
+                {/* Industry Selectors */}
+                <div className="mt-8 flex flex-wrap gap-2">
+                    {categories.map((cat, idx) => {
+                        const Icon = cat.icon;
+                        const isSelected = activeTab === idx;
+                        return (
+                            <button
+                                key={cat.id}
+                                onClick={() => setActiveTab(idx)}
+                                className={`inline-flex items-center gap-2 border-2 border-foreground px-4 py-2.5 text-xs font-black uppercase tracking-wider transition-all cursor-pointer ${
+                                    isSelected
+                                        ? 'bg-foreground text-background shadow-[3px_3px_0_0_hsl(var(--primary))]'
+                                        : 'bg-background text-foreground hover:bg-secondary/60'
+                                }`}
+                            >
+                                <Icon className={`h-4 w-4 ${isSelected ? 'text-primary' : 'text-foreground'}`} strokeWidth={2.4} />
+                                <span>{cat.name}</span>
+                            </button>
+                        );
+                    })}
+                </div>
+
+                {/* Comparative Diagnostic Card */}
+                <Reveal delay={0.06}>
+                    <div className="mt-8 border-[3px] border-foreground bg-background shadow-[6px_6px_0_0_hsl(var(--foreground))]">
+                        <div className="grid grid-cols-1 md:grid-cols-2 divide-y-[3px] md:divide-y-0 md:divide-x-[3px] divide-foreground">
+                            {/* Left: The Digital Leak */}
+                            <div className="p-6 sm:p-8 bg-secondary/20 flex flex-col justify-between">
+                                <div>
+                                    <div className="inline-flex items-center gap-1.5 border border-foreground/30 bg-background px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-muted-foreground mb-4">
+                                        <X className="h-3.5 w-3.5 text-primary" strokeWidth={3} />
+                                        <span>Your Current Digital Leak</span>
+                                    </div>
+                                    <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-foreground">
+                                        Why Nearby Customers Choose Other Options
+                                    </h3>
+                                    <p className="mt-4 text-xs sm:text-sm font-medium leading-relaxed text-foreground/80">
+                                        {current.leak}
+                                    </p>
+                                </div>
+                                <div className="mt-6 border-t-2 border-foreground/15 pt-4 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                                    Result: High-intent local revenue walks into competitors
+                                </div>
+                            </div>
+
+                            {/* Right: What Beyond Horizon Fixes */}
+                            <div className="p-6 sm:p-8 flex flex-col justify-between bg-background">
+                                <div>
+                                    <div className="inline-flex items-center gap-1.5 border border-foreground/30 bg-primary/10 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-primary mb-4">
+                                        <Check className="h-3.5 w-3.5 text-primary" strokeWidth={3} />
+                                        <span>What Beyond Horizon Fixes</span>
+                                    </div>
+                                    <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-foreground">
+                                        The Complete Local Growth Fix
+                                    </h3>
+                                    <ul className="mt-4 space-y-2.5">
+                                        {current.fix.map(item => (
+                                            <li key={item} className="flex items-start gap-2.5 text-xs sm:text-sm font-semibold text-foreground/85">
+                                                <Check className="h-4 w-4 shrink-0 text-primary mt-0.5" strokeWidth={3} />
+                                                <span>{item}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                <div className="mt-8 pt-4 border-t-2 border-foreground/15 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+                                    <a
+                                        href={whatsappLink(current.auditPrefill)}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="inline-flex items-center justify-center gap-2 border-2 border-foreground bg-primary px-5 py-3 text-xs font-black uppercase tracking-[0.14em] text-primary-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))] transition-all hover:bg-foreground hover:text-background active:scale-[0.98]"
+                                    >
+                                        <span>Get Free Audit For My {current.name}</span>
+                                        <ArrowRight className="h-4 w-4" strokeWidth={2.4} />
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </Reveal>
-                <div>
-                    <Reveal>
-                        <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
-                            Why Beyond Horizon
-                        </p>
-                        <h2 className="mt-4 text-[clamp(2rem,4.5vw,3.5rem)] font-black uppercase leading-[1.02] tracking-tight">
-                            A Growth Partner, Not a Distant Agency.
+            </div>
+        </section>
+    );
+}
+
+// =========================================================================
+// 4. WHO WE HELP (Specific Local Business Focus)
+// =========================================================================
+function WhoWeHelp() {
+    const clientsWeHelp = [
+        {
+            icon: Stethoscope,
+            title: 'Dentists & Clinics',
+            desc: 'Get discovered when patients in your neighborhood search for dental care, implants, or specialist treatments.'
+        },
+        {
+            icon: Scissors,
+            title: 'Salons & Spas',
+            desc: 'Showcase real transformations and turn Instagram attention into daily booked appointments.'
+        },
+        {
+            icon: Utensils,
+            title: 'Restaurants & Cafes',
+            desc: 'Get found when people search for places to eat nearby and build consistent weekday and weekend rush.'
+        },
+        {
+            icon: Dumbbell,
+            title: 'Gyms & Fitness',
+            desc: 'Build local awareness across your area and generate trial workout enquiries from nearby fitness enthusiasts.'
+        },
+        {
+            icon: ShoppingBag,
+            title: 'Retail & Electronics',
+            desc: 'Turn Google Maps + Instagram + WhatsApp into a steady footfall engine for your physical store.'
+        },
+        {
+            icon: Briefcase,
+            title: 'Local Services',
+            desc: 'Be the first trusted name and phone number residents call when they need urgent local services.'
+        }
+    ];
+
+    return (
+        <section id="who-we-help" className="scroll-mt-24 border-b-[3px] border-foreground bg-secondary/30 py-16 md:py-24">
+            <div className="mx-auto max-w-6xl px-4 md:px-8">
+                <Reveal>
+                    <div className="border-b-[3px] border-foreground pb-6">
+                        <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
+                            Who This Is For
+                        </span>
+                        <h2 className="mt-3 text-[clamp(1.8rem,4.5vw,3.5rem)] font-black uppercase leading-[1.05] tracking-tight">
+                            Built Specifically For{' '}
+                            <span className="text-primary">Local Businesses.</span>
                         </h2>
-                        <p className="mt-5 max-w-lg text-base leading-relaxed text-foreground/70">
-                            We work with restaurants, salons, clinics, retail shops and
-                            service businesses across India — owners who are great at what
-                            they do and simply need to be seen. We treat your business
-                            like our own neighbourhood depends on it. Because it does.
+                        <p className="mt-2 text-sm sm:text-base leading-relaxed text-foreground/75 font-medium max-w-3xl">
+                            We don't work with generic tech startups or international apps. We specialize in businesses with physical doors, real products, and local walk-in customers.
                         </p>
-                    </Reveal>
-                    <ul className="mt-8 space-y-0 border-t-[3px] border-foreground">
-                        {benefits.map((b, i) => <Reveal key={b} delay={i * 0.05}>
-                            <li className="flex items-center gap-3 border-b border-foreground/15 py-4 text-sm font-semibold md:text-base">
-                                <span className="flex h-6 w-6 shrink-0 items-center justify-center bg-primary text-primary-foreground">
-                                    <Check className="h-4 w-4" strokeWidth={3} />
-                                </span>
-                                {b}
-                            </li>
-                        </Reveal>)}
-                    </ul>
+                    </div>
+                </Reveal>
+
+                <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {clientsWeHelp.map((item, idx) => {
+                        const Icon = item.icon;
+                        return (
+                            <Reveal key={item.title} delay={idx * 0.05}>
+                                <div className="h-full border-[3px] border-foreground bg-background p-6 shadow-[5px_5px_0_0_hsl(var(--foreground))] transition-all duration-300 hover:-translate-y-1 hover:shadow-[8px_8px_0_0_hsl(var(--primary))] flex flex-col justify-between">
+                                    <div>
+                                        <div className="inline-flex p-3 border-2 border-foreground bg-secondary/50 mb-4 shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                                            <Icon className="h-6 w-6 text-primary" strokeWidth={2.4} />
+                                        </div>
+                                        <h3 className="text-lg font-black uppercase tracking-tight text-foreground">
+                                            {item.title}
+                                        </h3>
+                                        <p className="mt-2 text-xs sm:text-sm font-semibold leading-relaxed text-foreground/75">
+                                            {item.desc}
+                                        </p>
+                                    </div>
+                                    <div className="mt-6 pt-4 border-t-2 border-foreground/15">
+                                        <a
+                                            href={whatsappLink(`Hi Beyond Horizon! I run a ${item.title} business. I want to discuss growing my local presence.`)}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-primary hover:text-foreground transition-colors"
+                                        >
+                                            <span>Discuss Your Growth</span>
+                                            <ArrowUpRight className="h-3.5 w-3.5" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </Reveal>
+                        );
+                    })}
                 </div>
             </div>
-
-            {/* Stats band */}
-            <Reveal delay={0.1}>
-                <div className="mt-20 grid gap-px border-[3px] border-foreground bg-foreground sm:grid-cols-3">
-                    {[{
-                        value: 120,
-                        suffix: '+',
-                        label: 'Local businesses grown'
-                    }, {
-                        value: 3,
-                        suffix: 'x',
-                        label: 'Average enquiry growth'
-                    }, {
-                        value: 48,
-                        suffix: 'hr',
-                        label: 'Free audit turnaround'
-                    }].map(s => <div key={s.label} className="bg-background p-8 text-center">
-                        <p className="stretch-wide text-5xl font-black tracking-tight text-primary md:text-6xl">
-                            <CountUp value={s.value} suffix={s.suffix} />
-                        </p>
-                        <p className="mt-2 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                            {s.label}
-                        </p>
-                    </div>)}
-                </div>
-            </Reveal>
-
-            {/* Testimonial broadsheet */}
-            <Reveal delay={0.1}>
-                <figure className="mt-20 border-l-[6px] border-primary pl-6 md:pl-10">
-                    <blockquote className="max-w-3xl text-xl font-medium leading-relaxed md:text-2xl">
-                        “Earlier, only our regulars knew us. Now people walk in saying
-                        they found us on Google or saw our reels. Weekends are full, and
-                        I finally stopped worrying about marketing.”
-                    </blockquote>
-                    <figcaption className="mt-5 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                        Ramesh Iyer — Restaurant Owner, Pune
-                    </figcaption>
-                </figure>
-            </Reveal>
-
-            <Reveal delay={0.12}>
-                <div className="relative mt-20 -mx-4 md:-mx-16">
-                    <img src={SHOP_IMAGE} alt="A small retail storefront in Delhi glowing warmly at dusk with customers passing by" className="h-[40vh] w-full object-cover object-center md:h-[52vh]" loading="lazy" />
-                    <p className="absolute bottom-4 left-6 border-2 border-foreground bg-background px-3 py-2 text-[11px] font-bold uppercase tracking-[0.15em] md:bottom-6 md:left-20">
-                        Offline business. Digitally visible.
-                    </p>
-                </div>
-            </Reveal>
-        </div>
-    </section>;
+        </section>
+    );
 }
+
+// =========================================================================
+// 5. THE 5-PILLAR SYSTEM (Outcome Language, No Agency Jargon)
+// =========================================================================
+function Services() {
+    const systemPillars = [
+        {
+            num: '01',
+            title: 'GET FOUND',
+            tag: 'Google • Maps • Local SEO',
+            outcome: 'So nearby customers can find your business when they are searching.',
+            desc: 'When high-intent local buyers search for your services on Google, we ensure your business shows up in the Top Google Maps 3-Pack with verified credentials and genuine 5-star customer reviews.',
+            deliverables: [
+                'Google Business Profile setup, verification & optimization',
+                'Local keyword ranking so you show up for high-intent searches',
+                'Countertop 5-star Google review collection strategy',
+                'Consistent photos, opening hours, and service updates'
+            ],
+            chips: ['Google Maps', 'Search Keywords', 'Verified GBP', '5★ Reviews'],
+            image: googleMapsExplainerImg,
+            imageAlt: 'Google Maps 3-pack local business discovery guide'
+        },
+        {
+            num: '02',
+            title: 'LOOK PROFESSIONAL',
+            tag: 'Website • Branding • Photos',
+            outcome: 'Turn visitors into enquiries with a fast, mobile-friendly digital storefront.',
+            desc: 'A clunky, slow website or an outdated page destroys trust within 3 seconds. We build custom, ultra-fast web pages optimized for mobile phones with direct 1-tap WhatsApp booking.',
+            deliverables: [
+                'Clean, lightning-fast mobile website (Zero slow WordPress templates)',
+                '1-Tap direct WhatsApp enquiry and appointment booking flow',
+                'Professional branding, typography & digital menu/catalog setup',
+                'Mobile-first layout optimized for easy thumb navigation'
+            ],
+            chips: ['Fast Mobile Web', 'WhatsApp Booking', 'Professional Brand', 'SSL Security'],
+            image: websiteExplainerImg,
+            imageAlt: 'High-converting mobile website with WhatsApp lead capture'
+        },
+        {
+            num: '03',
+            title: 'GET ATTENTION',
+            tag: 'Instagram • Reels • Content',
+            outcome: 'Show people what makes your business worth choosing with real 4K footage.',
+            desc: 'Stop posting dull downloaded flyers that get zero likes. Our production team travels directly to your business with cinema cameras and wireless audio to shoot scroll-stopping reels.',
+            deliverables: [
+                'On-location 4K video shoots at your store/clinic with cinema gear',
+                'Hook-driven viral Reels edited for Instagram & YouTube Shorts',
+                'Informative graphic carousels that answer customer questions',
+                'Monthly content calendar so your social pages never go silent'
+            ],
+            chips: ['4K Video Shoots', 'Viral Reels', 'Monthly Calendar', 'On-Location'],
+            image: beyondHorizonShootImg,
+            imageAlt: 'Beyond Horizon camera production crew on location'
+        },
+        {
+            num: '04',
+            title: 'GET CUSTOMERS',
+            tag: 'Meta & Google Ads • Local Targeting',
+            outcome: 'Reach people in your pin code who are ready to book or buy.',
+            desc: 'We run laser-targeted local ads on Instagram, Facebook, and Google that specifically target residents within a 3–5 km radius of your location, driving real calls and WhatsApp chats.',
+            deliverables: [
+                'Radius-targeted Meta ads for your exact pin codes and neighborhood',
+                'Offer creatives and promotional hooks designed to drive walk-ins',
+                'Direct-to-WhatsApp message ad campaigns with instant lead alerts',
+                'Budget management to ensure every rupee invested produces inquiries'
+            ],
+            chips: ['Pin-Code Ads', 'Meta Ad Campaigns', 'Direct Inquiries', 'Local Radius'],
+            image: localCustomerAdsImg,
+            imageAlt: 'Local store customer looking at targeted smartphone offer and ad'
+        },
+        {
+            num: '05',
+            title: 'AUTOMATE & GROW',
+            tag: 'WhatsApp • CRM • Follow-ups',
+            outcome: 'Follow up with leads and collect reviews without doing everything manually.',
+            desc: 'Never lose a customer because you were too busy working. We set up automated WhatsApp replies, review follow-ups, and lead capture systems that work 24/7.',
+            deliverables: [
+                'Automated instant WhatsApp greetings when a customer enquires',
+                'Pre-filled consultation and service inquiry message links',
+                'Post-visit review request automation to grow your 5-star count',
+                'Simple lead tracking so no customer call or message gets lost'
+            ],
+            chips: ['WhatsApp CRM', 'Instant Replies', 'Review Automation', 'Lead Tracking'],
+            image: whatsappCrmImg,
+            imageAlt: 'Business owner managing automated WhatsApp leads, reviews, and customer CRM'
+        }
+    ];
+
+    return (
+        <section id="services" className="scroll-mt-24 border-b-[3px] border-foreground bg-background py-16 md:py-24">
+            <div className="mx-auto max-w-6xl px-4 md:px-8">
+                {/* Header */}
+                <Reveal>
+                    <div className="border-b-[3px] border-foreground pb-6">
+                        <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
+                            The 5-Stage Growth System
+                        </span>
+                        <h2 className="mt-3 text-[clamp(1.8rem,4.5vw,3.5rem)] font-black uppercase leading-[1.05] tracking-tight">
+                            Everything You Need To{' '}
+                            <span className="text-primary">Grow Online.</span>
+                        </h2>
+                        <p className="mt-2 text-sm sm:text-base leading-relaxed text-foreground/75 font-medium max-w-3xl">
+                            You don't need five different freelancers. You need one connected system where each piece feeds directly into the next.
+                        </p>
+                    </div>
+                </Reveal>
+
+                {/* 5 Stacked Pillars */}
+                <div className="mt-12 space-y-10">
+                    {systemPillars.map((pillar, idx) => (
+                        <Reveal key={pillar.num} delay={0.05}>
+                            <div className="border-[3px] border-foreground bg-background shadow-[6px_6px_0_0_hsl(var(--foreground))] transition-all duration-300 hover:shadow-[10px_10px_0_0_hsl(var(--primary))]">
+                                {/* Pillar Top Bar */}
+                                <div className="flex flex-wrap items-center justify-between gap-3 border-b-[3px] border-foreground bg-secondary/40 px-5 py-3 sm:px-6">
+                                    <div className="flex items-center gap-3">
+                                        <span className="border-2 border-foreground bg-foreground px-2.5 py-0.5 text-xs font-black tracking-widest text-background">
+                                            {pillar.num}
+                                        </span>
+                                        <span className="text-xs sm:text-sm font-black uppercase tracking-[0.16em] text-foreground">
+                                            {pillar.title}
+                                        </span>
+                                    </div>
+                                    <span className="text-xs font-bold uppercase tracking-wider text-primary">
+                                        {pillar.tag}
+                                    </span>
+                                </div>
+
+                                {/* Pillar Body */}
+                                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6 sm:p-8 items-center">
+                                    {/* Left: Outcome & Details (7 cols) */}
+                                    <div className="lg:col-span-7 flex flex-col justify-between">
+                                        <div>
+                                            <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-primary">
+                                                {pillar.outcome}
+                                            </h3>
+                                            <p className="mt-3 text-xs sm:text-sm leading-relaxed text-foreground/80 font-medium">
+                                                {pillar.desc}
+                                            </p>
+
+                                            {/* Deliverables Checklist */}
+                                            <div className="mt-5 border-t-2 border-foreground/15 pt-4">
+                                                <p className="text-[11px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-3">
+                                                    What We Implement For You:
+                                                </p>
+                                                <ul className="space-y-2">
+                                                    {pillar.deliverables.map(del => (
+                                                        <li key={del} className="flex items-start gap-2.5 text-xs sm:text-sm font-semibold text-foreground/85">
+                                                            <Check className="h-4 w-4 shrink-0 text-primary mt-0.5" strokeWidth={3} />
+                                                            <span>{del}</span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+
+                                            {/* Chips */}
+                                            <div className="mt-5 flex flex-wrap gap-2">
+                                                {pillar.chips.map(chip => (
+                                                    <span
+                                                        key={chip}
+                                                        className="border border-foreground/30 bg-secondary/50 px-2.5 py-0.5 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-foreground"
+                                                    >
+                                                        {chip}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="mt-6 pt-2">
+                                            <a
+                                                href="#contact"
+                                                className="inline-flex items-center gap-2 border-2 border-foreground bg-foreground text-background px-5 py-2.5 text-xs font-black uppercase tracking-[0.14em] shadow-[3px_3px_0_0_hsl(var(--foreground))] transition-all hover:bg-primary hover:border-primary active:scale-[0.98]"
+                                            >
+                                                <span>Get My Free Growth Audit</span>
+                                                <ArrowUpRight className="h-4 w-4" />
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    {/* Right: Real Visual Showcase (5 cols) */}
+                                    <div className="lg:col-span-5">
+                                        <div className="border-2 border-foreground bg-background shadow-[4px_4px_0_0_hsl(var(--foreground))] overflow-hidden">
+                                            <img
+                                                src={pillar.image}
+                                                alt={pillar.imageAlt}
+                                                className="aspect-[16/11] w-full object-cover object-center"
+                                                loading="lazy"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Reveal>
+                    ))}
+                </div>
+
+                {/* Grounding Unifying Line */}
+                <Reveal delay={0.1}>
+                    <div className="mt-14 border-[3px] border-foreground bg-foreground p-6 sm:p-8 text-background shadow-[6px_6px_0_0_hsl(var(--primary))] text-center">
+                        <p className="text-base sm:text-xl lg:text-2xl font-black uppercase tracking-tight text-background">
+                            “You don't need five different agencies. You need one connected system.”
+                        </p>
+                        <p className="mt-2 text-xs sm:text-sm text-background/70 font-medium">
+                            Beyond Horizon acts as your complete in-house digital growth team for a fraction of the cost.
+                        </p>
+                    </div>
+                </Reveal>
+            </div>
+        </section>
+    );
+}
+
+// =========================================================================
+// 6. WHAT WE ACTUALLY DO EVERY MONTH (Tangible Deliverables)
+// =========================================================================
+function WhatWeDoMonthly() {
+    const monthlyItems = [
+        {
+            category: 'GOOGLE',
+            items: [
+                'Google Business Profile updates',
+                'Local search ranking & keyword monitoring',
+                '5-Star review response templates',
+                'Fresh photo uploads & geo-tagging'
+            ]
+        },
+        {
+            category: 'CONTENT',
+            items: [
+                'On-location camera shoots at your venue',
+                'High-retention Reels filmed & edited',
+                'Educational customer carousels',
+                'Full monthly content calendar'
+            ]
+        },
+        {
+            category: 'WEBSITE',
+            items: [
+                'Fast mobile-friendly landing pages',
+                '1-Tap direct WhatsApp booking buttons',
+                'Hosting, SSL security & speed check',
+                'Menu, service & pricing updates'
+            ]
+        },
+        {
+            category: 'ADS',
+            items: [
+                'Targeted Meta & Instagram local ads',
+                'Local pin-code radius targeting (3-5 km)',
+                'High-converting offer creatives',
+                'Direct enquiry lead generation'
+            ]
+        },
+        {
+            category: 'FOLLOW-UP',
+            items: [
+                'Instant WhatsApp enquiry notifications',
+                'Countertop Google review QR standees',
+                'Customer lead tracking & qualification',
+                'Plain-English fortnightly growth reports'
+            ]
+        }
+    ];
+
+    return (
+        <section className="border-b-[3px] border-foreground bg-secondary/30 py-16 md:py-24">
+            <div className="mx-auto max-w-6xl px-4 md:px-8">
+                <Reveal>
+                    <div className="border-b-[3px] border-foreground pb-6">
+                        <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
+                            Tangible Deliverables
+                        </span>
+                        <h2 className="mt-3 text-[clamp(1.8rem,4.5vw,3.5rem)] font-black uppercase leading-[1.05] tracking-tight">
+                            What We Actually Do{' '}
+                            <span className="text-primary">Every Month.</span>
+                        </h2>
+                        <p className="mt-2 text-sm sm:text-base leading-relaxed text-foreground/75 font-medium max-w-3xl">
+                            No vague marketing jargon. Depending on your plan, here is the concrete work we execute for your business month after month:
+                        </p>
+                    </div>
+                </Reveal>
+
+                <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                    {monthlyItems.map((col, idx) => (
+                        <Reveal key={col.category} delay={idx * 0.05}>
+                            <div className="h-full border-[3px] border-foreground bg-background p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between">
+                                <div>
+                                    <div className="border-b-2 border-foreground pb-2.5 mb-4">
+                                        <span className="text-xs font-black uppercase tracking-[0.2em] text-primary">
+                                            {col.category}
+                                        </span>
+                                    </div>
+                                    <ul className="space-y-2.5">
+                                        {col.items.map(item => (
+                                            <li key={item} className="flex items-start gap-2 text-xs font-semibold text-foreground/80 leading-snug">
+                                                <Check className="h-3.5 w-3.5 shrink-0 text-primary mt-0.5" strokeWidth={3} />
+                                                <span>{item}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                        </Reveal>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+// =========================================================================
+// 7. REAL WORK. REAL BUSINESSES. (Client Proof of Work)
+// =========================================================================
+function RealWork() {
+    const clientProjects = [
+        {
+            name: 'Dental Reforms',
+            category: 'Dental Clinic & Implants Center',
+            location: 'Thane, Maharashtra',
+            deliverables: 'Local SEO • 4K Implants Video Shoot • Educational Carousels • Review Workflow',
+            image: dentalHappyPatientImg,
+            imagePosition: 'object-[center_20%]',
+            imageCaption: 'Happy Patient & Dr. Dipika Dodeja Following Treatment at Dental Reforms Clinic',
+            badge: 'Healthcare Client'
+        },
+        {
+            name: 'Dargar Communication',
+            category: 'Mobile & Electronics Retail',
+            location: 'Kalyan',
+            deliverables: 'Retail Storefront Branding • Google Maps Optimization • Countertop Review QR Scanner',
+            image: dargarCommImg,
+            imageCaption: 'Physical Retail Storefront & In-Store Google QR Review Scanner',
+            badge: 'Retail Storefront'
+        },
+        {
+            name: 'Global Computer Solution',
+            category: 'IT Sales, Custom PC Builds & CCTV',
+            location: 'Kongaon, Kalyan West',
+            deliverables: 'Google Business Profile Setup • Local Search Dominance • Target Service Ads',
+            image: gcsImg,
+            imageCaption: 'Illuminated Storefront Board & Verified Google Business Presence',
+            badge: 'IT & Hardware'
+        },
+        {
+            name: 'Siddhi Dental Clinic',
+            category: 'Advanced Dental Hospital',
+            location: 'Badlapur',
+            deliverables: 'High-Converting Clinic Website • On-Site Photography • Online Patient Booking',
+            image: siddhiDentalImg,
+            imageCaption: 'Real Doctor & Patient Treatment Session Captured for Website',
+            badge: 'Clinical Practice'
+        }
+    ];
+
+    return (
+        <section id="work" className="scroll-mt-24 border-b-[3px] border-foreground bg-background py-16 md:py-24">
+            <div className="mx-auto max-w-6xl px-4 md:px-8">
+                <Reveal>
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-[3px] border-foreground pb-6">
+                        <div>
+                            <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
+                                Proof of Work
+                            </span>
+                            <h2 className="mt-3 text-[clamp(1.8rem,4.5vw,3.5rem)] font-black uppercase leading-[1.05] tracking-tight">
+                                Real Businesses.{' '}
+                                <span className="text-primary">Real Work.</span>
+                            </h2>
+                            <p className="mt-2 text-sm sm:text-base leading-relaxed text-foreground/75 font-medium max-w-2xl">
+                                We don’t show fake mockups. Here is real work we have created, filmed, and launched for actual offline businesses:
+                            </p>
+                        </div>
+                        <a
+                            href={PORTFOLIO_URL}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex min-h-[46px] items-center gap-2 border-2 border-foreground bg-foreground px-5 py-2.5 text-xs font-black uppercase tracking-[0.14em] text-background transition-colors hover:bg-primary active:scale-[0.98] shrink-0"
+                        >
+                            <span>Explore Live Portfolio Site</span>
+                            <ArrowUpRight className="h-4 w-4 text-primary" strokeWidth={2.4} />
+                        </a>
+                    </div>
+                </Reveal>
+
+                {/* 4 Client Showcase Cards */}
+                <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {clientProjects.map((client, idx) => (
+                        <Reveal key={client.name} delay={idx * 0.08}>
+                            <div className="group border-[3px] border-foreground bg-background p-5 sm:p-6 shadow-[6px_6px_0_0_hsl(var(--foreground))] transition-all duration-300 hover:shadow-[10px_10px_0_0_hsl(var(--primary))] flex flex-col justify-between h-full">
+                                <div>
+                                    {/* Visual Image */}
+                                    <div className="relative aspect-[16/10] w-full overflow-hidden border-2 border-foreground bg-secondary/40">
+                                        <div className="absolute top-2.5 right-2.5 z-10 border border-foreground bg-background px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-foreground shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                                            {client.badge}
+                                        </div>
+                                        <img
+                                            src={client.image}
+                                            alt={client.name}
+                                            className={`h-full w-full object-cover ${client.imagePosition || 'object-center'} transition-transform duration-500 group-hover:scale-105`}
+                                            loading="lazy"
+                                        />
+                                        <div className="absolute bottom-0 inset-x-0 bg-background/95 border-t border-foreground px-3 py-1.5 text-[10px] font-bold text-foreground">
+                                            {client.imageCaption}
+                                        </div>
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="mt-5">
+                                        <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">
+                                            {client.location}
+                                        </span>
+                                        <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-foreground mt-0.5">
+                                            {client.name}
+                                        </h3>
+                                        <p className="text-xs font-semibold text-muted-foreground mt-0.5">
+                                            {client.category}
+                                        </p>
+                                        <div className="mt-3 border-t border-foreground/15 pt-3">
+                                            <p className="text-xs font-semibold text-foreground/85">
+                                                <strong className="text-foreground">Work Executed:</strong> {client.deliverables}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="mt-6 pt-3 border-t-2 border-foreground/15 flex items-center justify-between">
+                                    <span className="text-[11px] font-black uppercase tracking-wider text-muted-foreground">
+                                        Active Client
+                                    </span>
+                                    <a
+                                        href={PORTFOLIO_URL}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="inline-flex items-center gap-1 text-xs font-black uppercase tracking-wider text-primary hover:text-foreground transition-colors"
+                                    >
+                                        <span>View Case Details</span>
+                                        <ArrowUpRight className="h-3.5 w-3.5" />
+                                    </a>
+                                </div>
+                            </div>
+                        </Reveal>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+// =========================================================================
+// 8. BEFORE ➔ AFTER (The Simple Transformation)
+// =========================================================================
+function BeforeAfter() {
+    return (
+        <section className="border-b-[3px] border-foreground bg-secondary/30 py-16 md:py-24">
+            <div className="mx-auto max-w-6xl px-4 md:px-8">
+                <Reveal>
+                    <div className="border-b-[3px] border-foreground pb-6 text-center max-w-3xl mx-auto">
+                        <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
+                            The Transformation
+                        </span>
+                        <h2 className="mt-3 text-[clamp(1.8rem,4.5vw,3.5rem)] font-black uppercase leading-[1.05] tracking-tight">
+                            From Invisible{' '}
+                            <span className="text-primary">➔ Discoverable.</span>
+                        </h2>
+                        <p className="mt-2 text-sm sm:text-base leading-relaxed text-foreground/75 font-medium">
+                            Here is what actually changes when you replace random marketing with one connected growth system:
+                        </p>
+                    </div>
+                </Reveal>
+
+                <Reveal delay={0.06}>
+                    <div className="mt-10 border-[3px] border-foreground bg-background shadow-[6px_6px_0_0_hsl(var(--foreground))]">
+                        <div className="grid grid-cols-1 md:grid-cols-2 divide-y-[3px] md:divide-y-0 md:divide-x-[3px] divide-foreground">
+                            {/* Left: BEFORE */}
+                            <div className="p-6 sm:p-8 bg-red-50/20">
+                                <div className="inline-flex items-center gap-1.5 border-2 border-foreground bg-background px-3 py-1 text-xs font-black uppercase tracking-wider text-foreground mb-6 shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                                    <X className="h-4 w-4 text-primary" strokeWidth={3} />
+                                    <span>Before Beyond Horizon</span>
+                                </div>
+
+                                <div className="space-y-6">
+                                    <div>
+                                        <p className="text-xs font-black uppercase tracking-wider text-muted-foreground">Google & Maps:</p>
+                                        <p className="mt-1 text-xs sm:text-sm font-semibold text-foreground/80">
+                                            ❌ Unverified listing, old photos from 3 years ago, 4 reviews, buried below competitors on local searches.
+                                        </p>
+                                    </div>
+                                    <div className="border-t border-foreground/15 pt-4">
+                                        <p className="text-xs font-black uppercase tracking-wider text-muted-foreground">Instagram & Social:</p>
+                                        <p className="mt-1 text-xs sm:text-sm font-semibold text-foreground/80">
+                                            ❌ Random flyers downloaded off Google, weeks without posting, zero local engagement or followers.
+                                        </p>
+                                    </div>
+                                    <div className="border-t border-foreground/15 pt-4">
+                                        <p className="text-xs font-black uppercase tracking-wider text-muted-foreground">Website & Booking:</p>
+                                        <p className="mt-1 text-xs sm:text-sm font-semibold text-foreground/80">
+                                            ❌ Broken layout on mobile phones, loads slowly, no easy way for a customer to WhatsApp or book.
+                                        </p>
+                                    </div>
+                                    <div className="border-t border-foreground/15 pt-4">
+                                        <p className="text-xs font-black uppercase tracking-wider text-muted-foreground">Overall Result:</p>
+                                        <p className="mt-1 text-xs sm:text-sm font-bold text-primary">
+                                            Total reliance on existing word-of-mouth. New residents moving into the area don't even know you exist.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Right: AFTER */}
+                            <div className="p-6 sm:p-8 bg-emerald-50/20">
+                                <div className="inline-flex items-center gap-1.5 border-2 border-foreground bg-primary px-3 py-1 text-xs font-black uppercase tracking-wider text-primary-foreground mb-6 shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                                    <Check className="h-4 w-4 text-primary-foreground" strokeWidth={3} />
+                                    <span>After Beyond Horizon</span>
+                                </div>
+
+                                <div className="space-y-6">
+                                    <div>
+                                        <p className="text-xs font-black uppercase tracking-wider text-muted-foreground">Google & Maps:</p>
+                                        <p className="mt-1 text-xs sm:text-sm font-semibold text-foreground/90">
+                                            ✓ Verified profile in top local results, fresh weekly photos, automated 5-star customer review collection.
+                                        </p>
+                                    </div>
+                                    <div className="border-t border-foreground/15 pt-4">
+                                        <p className="text-xs font-black uppercase tracking-wider text-muted-foreground">Instagram & Social:</p>
+                                        <p className="mt-1 text-xs sm:text-sm font-semibold text-foreground/90">
+                                            ✓ Cinema-grade 4K reels showing real products, team & transformations that stop the local feed.
+                                        </p>
+                                    </div>
+                                    <div className="border-t border-foreground/15 pt-4">
+                                        <p className="text-xs font-black uppercase tracking-wider text-muted-foreground">Website & Booking:</p>
+                                        <p className="mt-1 text-xs sm:text-sm font-semibold text-foreground/90">
+                                            ✓ Clean, modern, loads under 1.5 seconds, with 1-tap direct WhatsApp booking buttons.
+                                        </p>
+                                    </div>
+                                    <div className="border-t border-foreground/15 pt-4">
+                                        <p className="text-xs font-black uppercase tracking-wider text-muted-foreground">Overall Result:</p>
+                                        <p className="mt-1 text-xs sm:text-sm font-bold text-emerald-700">
+                                            A predictable digital pipeline bringing new inquiries, direct phone calls, and steady weekly walk-ins.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Reveal>
+            </div>
+        </section>
+    );
+}
+
+// =========================================================================
+// 9. HOW IT WORKS (Simple 5-Step Process)
+// =========================================================================
+function Process() {
+    const processSteps = [
+        {
+            num: '01',
+            title: 'Free Growth Audit',
+            desc: 'We review your current Google profile, search visibility, reviews, and social media presence for free.'
+        },
+        {
+            num: '02',
+            title: 'Clear Action Plan',
+            desc: 'We share a straightforward 90-day roadmap in plain English — no technical jargon or confusing spreadsheets.'
+        },
+        {
+            num: '03',
+            title: 'On-Site Shoot & Setup',
+            desc: 'Our team visits your business with cinema gear to film real content and build your high-converting web pages.'
+        },
+        {
+            num: '04',
+            title: 'Launch & Drive Traffic',
+            desc: 'We optimize your Google Maps ranking, launch high-retention Reels, and activate targeted local ads.'
+        },
+        {
+            num: '05',
+            title: 'Track, Report & Scale',
+            desc: 'Bi-weekly WhatsApp updates showing real customer inquiries, phone calls, and footfall progress.'
+        }
+    ];
+
+    return (
+        <section id="process" className="scroll-mt-24 border-b-[3px] border-foreground bg-background py-16 md:py-24">
+            <div className="mx-auto max-w-6xl px-4 md:px-8">
+                <Reveal>
+                    <div className="border-b-[3px] border-foreground pb-6">
+                        <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
+                            How It Works
+                        </span>
+                        <h2 className="mt-3 text-[clamp(1.8rem,4.5vw,3.5rem)] font-black uppercase leading-[1.05] tracking-tight">
+                            Simple. Transparent.{' '}
+                            <span className="text-primary">Step-by-Step.</span>
+                        </h2>
+                        <p className="mt-2 text-sm sm:text-base leading-relaxed text-foreground/75 font-medium max-w-3xl">
+                            How we partner with your business to build your digital presence from day one:
+                        </p>
+                    </div>
+                </Reveal>
+
+                <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                    {processSteps.map((step, idx) => (
+                        <Reveal key={step.num} delay={idx * 0.05}>
+                            <div className="h-full border-[3px] border-foreground bg-background p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between">
+                                <div>
+                                    <span className="inline-block border-2 border-foreground bg-primary px-2.5 py-0.5 text-xs font-black text-primary-foreground shadow-[2px_2px_0_0_hsl(var(--foreground))] mb-3">
+                                        Step {step.num}
+                                    </span>
+                                    <h3 className="text-base font-black uppercase tracking-tight text-foreground">
+                                        {step.title}
+                                    </h3>
+                                    <p className="mt-2 text-xs font-semibold leading-relaxed text-foreground/75">
+                                        {step.desc}
+                                    </p>
+                                </div>
+                            </div>
+                        </Reveal>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+// =========================================================================
+// 10. TRANSPARENT LOCAL PRICING (Filtered, Scalable, Realistic)
+// =========================================================================
+function Pricing() {
+    const plans = [
+        {
+            name: 'GET FOUND',
+            price: '₹6,999',
+            period: '/ month',
+            tagline: 'Be discoverable.',
+            summary: 'Google par nearby customers ke saamne visible raho.',
+            forWho: 'Best for: Clinics • Local Shops • Services',
+            features: [
+                'Google Business Profile complete management',
+                'Local SEO & Google Maps ranking optimization',
+                'Local search keyword optimization',
+                'Regular GBP updates & promotional posts',
+                'Review collection guidance & reputation strategy',
+                'Plain-English monthly visibility report'
+            ],
+            setupNote: 'One-time GBP setup: ₹2,999',
+            highlighted: false,
+            ctaPrefill: 'Hi Beyond Horizon! I want to start with the Get Found plan (₹6,999/mo) for my business.'
+        },
+        {
+            name: 'GET ATTENTION',
+            price: '₹9,999',
+            period: '/ month',
+            tagline: 'Be remembered.',
+            summary: 'Instagram par professional presence + consistent content.',
+            forWho: 'Best for: Salons • Cafes • Gyms • Retail • Local Brands',
+            features: [
+                'Instagram + Facebook complete management',
+                'Local content strategy & monthly calendar',
+                '4 High-retention Reels (scripted & edited)',
+                '4 Carousels / Static brand creatives',
+                'Captions, local hashtags & scheduled publishing',
+                'Basic community management & DM lead routing'
+            ],
+            setupNote: 'Shoot not included (Add-on from ₹4,999/session)',
+            highlighted: false,
+            ctaPrefill: 'Hi Beyond Horizon! I want to start with the Get Attention plan (₹9,999/mo) for my business.'
+        },
+        {
+            name: 'LOCAL GROWTH',
+            price: '₹15,999',
+            period: '/ month',
+            tagline: 'Turn visibility into enquiries.',
+            summary: 'Google + Social + Content — one connected system.',
+            forWho: 'Best for: Businesses that want consistent local growth without juggling freelancers.',
+            features: [
+                'Google Business Profile & Maps optimization',
+                'Instagram + Facebook complete management',
+                '8 High-retention Reels (scripted & edited)',
+                '4 Carousels / Graphic brand creatives',
+                'Weekly GBP posts & photo updates',
+                'Monthly local growth strategy review',
+                'Review collection guidance & reputation strategy',
+                'Comprehensive monthly performance report'
+            ],
+            setupNote: 'Add-ons: Shoots from ₹4,999 • Ads from ₹4,999/mo',
+            highlighted: true,
+            badge: 'MOST POPULAR',
+            ctaPrefill: 'Hi Beyond Horizon! I want to start with the Local Growth plan (₹15,999/mo) for my business.'
+        }
+    ];
+
+    const addOnCategories = [
+        {
+            category: 'WEBSITE BUILDS',
+            badge: 'ONE-TIME',
+            desc: 'High-speed, mobile-first websites built to turn visitors into WhatsApp leads.',
+            items: [
+                { title: 'Starter Website', price: '₹9,999', detail: 'Clean 1-page mobile presence, WhatsApp booking button, fast loading.' },
+                { title: 'Growth Website', price: '₹19,999', detail: 'Custom multi-section design, lead capture, SEO basics & Google analytics.' },
+                { title: 'Custom Website', price: '₹29,999+', detail: 'Bespoke functionality, custom design system & multi-service architecture.' }
+            ]
+        },
+        {
+            category: 'CONTENT SHOOTS',
+            badge: 'PER SESSION',
+            desc: 'On-location video & photo shoots so you have an authentic media library.',
+            items: [
+                { title: 'Basic Shoot', price: '₹4,999', detail: '1 location, up to ~2 hours, 4K mobile/camera capture of treatments & store.' },
+                { title: 'Cinematic Shoot', price: '₹7,999+', detail: 'Planned storyboard, cinema camera gear, B-roll & multi-reel footage.' }
+            ]
+        },
+        {
+            category: 'PAID ADS MANAGEMENT',
+            badge: 'MONTHLY',
+            desc: 'Targeted local ads reaching ready-to-buy customers in your pincode.',
+            items: [
+                { title: 'Meta Ads Management', price: '₹4,999/mo', detail: 'Targeted Instagram & Facebook lead ads. Ad budget paid directly by client.' },
+                { title: 'Google Ads Management', price: '₹4,999/mo', detail: 'High-intent local search ads for instant calls. Ad budget paid directly.' }
+            ]
+        },
+        {
+            category: 'PROFILE SETUP',
+            badge: 'ONE-TIME',
+            desc: 'Get your local digital foundation verified and optimized from day one.',
+            items: [
+                { title: 'GBP Setup & Verification', price: '₹2,999', detail: 'Complete setup, categories, geo-tagged photos, NAP sync & verification support.' }
+            ]
+        }
+    ];
+
+    return (
+        <section id="pricing" className="scroll-mt-24 border-b-[3px] border-foreground bg-secondary/30 py-16 md:py-24">
+            <div className="mx-auto max-w-6xl px-4 md:px-8">
+                {/* Section Header */}
+                <Reveal>
+                    <div className="border-b-[3px] border-foreground pb-6 text-center max-w-3xl mx-auto">
+                        <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
+                            Local Growth Pricing
+                        </span>
+                        <h2 className="mt-3 text-[clamp(1.8rem,4.5vw,3.5rem)] font-black uppercase leading-[1.05] tracking-tight">
+                            Plans That Scale With{' '}
+                            <span className="text-primary">Your Business.</span>
+                        </h2>
+                        <p className="mt-2 text-sm sm:text-base leading-relaxed text-foreground/75 font-medium">
+                            No bloated agency retainers. No hidden shoot costs. Transparent, structured pricing designed for real local businesses:
+                        </p>
+                    </div>
+                </Reveal>
+
+                {/* 3 Main Monthly Cards */}
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+                    {plans.map((plan, idx) => (
+                        <Reveal key={plan.name} delay={idx * 0.08}>
+                            <div
+                                className={`h-full border-[3px] border-foreground p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 ${
+                                    plan.highlighted
+                                        ? 'bg-background shadow-[8px_8px_0_0_hsl(var(--primary))] -translate-y-2'
+                                        : 'bg-background shadow-[6px_6px_0_0_hsl(var(--foreground))] hover:-translate-y-1'
+                                }`}
+                            >
+                                <div>
+                                    {plan.badge && (
+                                        <div className="mb-4 inline-block border-2 border-foreground bg-primary px-3 py-1 text-[10px] font-black uppercase tracking-wider text-primary-foreground shadow-[2px_2px_0_0_hsl(var(--foreground))]">
+                                            {plan.badge}
+                                        </div>
+                                    )}
+
+                                    <div className="flex items-center justify-between">
+                                        <h3 className="text-lg font-black uppercase tracking-wider text-foreground">
+                                            {plan.name}
+                                        </h3>
+                                        <span className="text-[11px] font-bold uppercase tracking-wider text-primary">
+                                            {plan.tagline}
+                                        </span>
+                                    </div>
+
+                                    <div className="mt-4 flex items-baseline gap-1.5 border-b-2 border-foreground/15 pb-4">
+                                        <span className="text-3xl sm:text-4xl font-black tracking-tight text-primary">
+                                            {plan.price}
+                                        </span>
+                                        <span className="text-xs font-bold text-muted-foreground uppercase">
+                                            {plan.period}
+                                        </span>
+                                    </div>
+
+                                    <p className="mt-3 text-xs font-bold text-foreground leading-relaxed">
+                                        {plan.summary}
+                                    </p>
+
+                                    <p className="mt-1.5 text-[11px] font-medium text-muted-foreground">
+                                        {plan.forWho}
+                                    </p>
+
+                                    {/* Features list */}
+                                    <div className="mt-5 border-t-2 border-foreground/15 pt-4">
+                                        <p className="text-[11px] font-black uppercase tracking-[0.18em] text-muted-foreground mb-3">
+                                            What’s Included:
+                                        </p>
+                                        <ul className="space-y-2.5">
+                                            {plan.features.map(f => (
+                                                <li key={f} className="flex items-start gap-2.5 text-xs font-semibold text-foreground/85 leading-snug">
+                                                    <Check className="h-3.5 w-3.5 shrink-0 text-primary mt-0.5" strokeWidth={3} />
+                                                    <span>{f}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+
+                                    {/* Note on shoot / setup */}
+                                    <div className="mt-5 border-t border-dashed border-foreground/20 pt-3">
+                                        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wide">
+                                            {plan.setupNote}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="mt-8 pt-4 border-t-2 border-foreground/15">
+                                    <a
+                                        href={whatsappLink(plan.ctaPrefill)}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className={`w-full inline-flex min-h-[46px] items-center justify-center gap-2 border-2 border-foreground px-4 py-3 text-xs font-black uppercase tracking-[0.14em] transition-all active:scale-[0.98] ${
+                                            plan.highlighted
+                                                ? 'bg-primary text-primary-foreground shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:bg-foreground hover:text-background'
+                                                : 'bg-foreground text-background shadow-[3px_3px_0_0_hsl(var(--foreground))] hover:bg-primary'
+                                        }`}
+                                    >
+                                        <span>Get Started →</span>
+                                        <ArrowRight className="h-4 w-4" strokeWidth={2.4} />
+                                    </a>
+                                </div>
+                            </div>
+                        </Reveal>
+                    ))}
+                </div>
+
+                {/* 4. GROWTH PARTNER (Custom / System Tier) */}
+                <Reveal delay={0.15}>
+                    <div className="mt-12 border-[3px] border-foreground bg-foreground text-background p-6 sm:p-10 shadow-[8px_8px_0_0_hsl(var(--primary))]">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                            {/* Left Info (7 cols) */}
+                            <div className="lg:col-span-7">
+                                <div className="inline-block border-2 border-background bg-primary px-3 py-1 text-[10px] font-black uppercase tracking-wider text-primary-foreground shadow-[2px_2px_0_0_hsl(var(--background))]">
+                                    Full In-House Growth System
+                                </div>
+                                <h3 className="mt-3 text-2xl sm:text-3xl font-black uppercase tracking-tight text-background">
+                                    GROWTH PARTNER
+                                </h3>
+                                <div className="mt-2 flex items-baseline gap-2">
+                                    <span className="text-3xl sm:text-4xl font-black text-primary">
+                                        Starting ₹24,999
+                                    </span>
+                                    <span className="text-xs font-bold text-background/70 uppercase">
+                                        / month
+                                    </span>
+                                </div>
+                                <p className="mt-3 text-xs sm:text-sm text-background/80 font-medium leading-relaxed">
+                                    For businesses that want Beyond Horizon to act as their complete digital growth department. We connect every piece from Google Maps to Instagram, ads, website and lead automation.
+                                </p>
+
+                                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5 border-t border-background/20 pt-5">
+                                    <div className="space-y-2 text-xs font-semibold text-background/90">
+                                        <p className="flex items-center gap-2">
+                                            <Check className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={3} />
+                                            <span>Local SEO + Google Maps</span>
+                                        </p>
+                                        <p className="flex items-center gap-2">
+                                            <Check className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={3} />
+                                            <span>Social Media & Content Strategy</span>
+                                        </p>
+                                        <p className="flex items-center gap-2">
+                                            <Check className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={3} />
+                                            <span>High-Retention Reels & Creatives</span>
+                                        </p>
+                                        <p className="flex items-center gap-2">
+                                            <Check className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={3} />
+                                            <span>Website Conversion Optimisation</span>
+                                        </p>
+                                    </div>
+                                    <div className="space-y-2 text-xs font-semibold text-background/90">
+                                        <p className="flex items-center gap-2">
+                                            <Check className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={3} />
+                                            <span>Meta & Instagram Ads Management</span>
+                                        </p>
+                                        <p className="flex items-center gap-2">
+                                            <Check className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={3} />
+                                            <span>WhatsApp Lead Flow & Quick Follow-Up</span>
+                                        </p>
+                                        <p className="flex items-center gap-2">
+                                            <Check className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={3} />
+                                            <span>Dedicated Growth Lead</span>
+                                        </p>
+                                        <p className="flex items-center gap-2">
+                                            <Check className="h-3.5 w-3.5 text-primary shrink-0" strokeWidth={3} />
+                                            <span>Monthly Strategy & Performance Review</span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <p className="mt-4 text-[10px] sm:text-[11px] text-background/60 italic">
+                                    *Website development, professional shoots and direct ad spend are quoted separately based on exact scope.
+                                </p>
+                            </div>
+
+                            {/* Right Action (5 cols) */}
+                            <div className="lg:col-span-5 flex flex-col justify-center items-start lg:items-end">
+                                <div className="border-2 border-background/30 bg-background/5 p-6 w-full text-center">
+                                    <p className="text-xs font-bold uppercase tracking-wider text-background/70">
+                                        Have Unique Requirements?
+                                    </p>
+                                    <p className="mt-1 text-sm font-black uppercase text-background">
+                                        Custom Growth Roadmap
+                                    </p>
+                                    <a
+                                        href={whatsappLink('Hi Beyond Horizon! I want to build a custom Growth Partner plan (Starting ₹24,999/mo) for my business.')}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="mt-5 w-full inline-flex min-h-[48px] items-center justify-center gap-2 border-2 border-primary bg-primary px-6 py-3 text-xs font-black uppercase tracking-[0.14em] text-primary-foreground shadow-[4px_4px_0_0_hsl(var(--background))] transition-all hover:bg-background hover:text-foreground active:scale-[0.98]"
+                                    >
+                                        <span>Build My Growth Plan →</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Reveal>
+
+                {/* 5. TRANSPARENT ADD-ONS & ONE-TIME SERVICES */}
+                <div className="mt-16 border-t-[3px] border-foreground pt-12">
+                    <Reveal>
+                        <div className="text-center max-w-2xl mx-auto mb-10">
+                            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
+                                Complete Transparency
+                            </span>
+                            <h3 className="mt-2 text-xl sm:text-2xl font-black uppercase tracking-tight">
+                                One-Time Builds & Specialized Add-Ons
+                            </h3>
+                            <p className="mt-1.5 text-xs sm:text-sm text-foreground/75 font-medium">
+                                No surprise bills or hidden markups. Add services as your business expands:
+                            </p>
+                        </div>
+                    </Reveal>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {addOnCategories.map((cat, i) => (
+                            <Reveal key={cat.category} delay={i * 0.05}>
+                                <div className="border-2 border-foreground bg-background p-5 shadow-[4px_4px_0_0_hsl(var(--foreground))] flex flex-col justify-between h-full">
+                                    <div>
+                                        <div className="flex items-center justify-between border-b-2 border-foreground/15 pb-2.5">
+                                            <h4 className="text-xs font-black uppercase tracking-wider text-foreground">
+                                                {cat.category}
+                                            </h4>
+                                            <span className="border border-foreground bg-secondary px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-foreground">
+                                                {cat.badge}
+                                            </span>
+                                        </div>
+                                        <p className="mt-2 text-[11px] font-medium text-foreground/70 leading-snug">
+                                            {cat.desc}
+                                        </p>
+
+                                        <div className="mt-4 space-y-3">
+                                            {cat.items.map(item => (
+                                                <div key={item.title} className="border-t border-foreground/10 pt-2">
+                                                    <div className="flex items-baseline justify-between gap-1">
+                                                        <span className="text-xs font-bold text-foreground">
+                                                            {item.title}
+                                                        </span>
+                                                        <span className="text-xs font-black text-primary">
+                                                            {item.price}
+                                                        </span>
+                                                    </div>
+                                                    <p className="mt-0.5 text-[10px] text-muted-foreground leading-snug">
+                                                        {item.detail}
+                                                    </p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-5 pt-3 border-t border-foreground/15">
+                                        <a
+                                            href={whatsappLink(`Hi Beyond Horizon! I want to enquire about ${cat.category}.`)}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="text-[10px] font-black uppercase tracking-wider text-primary flex items-center justify-between hover:underline"
+                                        >
+                                            <span>Enquire Add-On</span>
+                                            <ArrowUpRight className="h-3 w-3" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </Reveal>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+// =========================================================================
+// 11. WHY BEYOND HORIZON
+// =========================================================================
+function WhyUs() {
+    const reasons = [
+        {
+            title: 'One Partner, Everything Handled',
+            desc: 'No juggling a website freelancer, a video editor, and an ad person. We manage your entire digital presence under one roof.'
+        },
+        {
+            title: 'We Speak Local Business',
+            desc: 'No corporate agency jargon or vanity metrics. We focus on phone calls, direction taps, and direct WhatsApp customer enquiries.'
+        },
+        {
+            title: 'Real On-Location Production',
+            desc: 'We bring cinema cameras, wireless audio, and lighting straight to your business location. No generic internet stock templates.'
+        },
+        {
+            title: 'Transparent Plain-English Updates',
+            desc: 'Bi-weekly updates sent directly on WhatsApp so you always know what is being built and how your presence is growing.'
+        }
+    ];
+
+    return (
+        <section className="border-b-[3px] border-foreground bg-background py-16 md:py-24">
+            <div className="mx-auto max-w-6xl px-4 md:px-8">
+                <Reveal>
+                    <div className="border-b-[3px] border-foreground pb-6">
+                        <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
+                            Why Us
+                        </span>
+                        <h2 className="mt-3 text-[clamp(1.8rem,4.5vw,3.5rem)] font-black uppercase leading-[1.05] tracking-tight">
+                            Built For Indian Markets &{' '}
+                            <span className="text-primary">Real Footfalls.</span>
+                        </h2>
+                    </div>
+                </Reveal>
+
+                <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {reasons.map((r, idx) => (
+                        <Reveal key={r.title} delay={idx * 0.05}>
+                            <div className="h-full border-[3px] border-foreground bg-secondary/30 p-6 shadow-[5px_5px_0_0_hsl(var(--foreground))] flex flex-col justify-between">
+                                <div>
+                                    <div className="h-2.5 w-8 bg-primary mb-4" />
+                                    <h3 className="text-base font-black uppercase tracking-tight text-foreground">
+                                        {r.title}
+                                    </h3>
+                                    <p className="mt-2 text-xs sm:text-sm font-semibold leading-relaxed text-foreground/75">
+                                        {r.desc}
+                                    </p>
+                                </div>
+                            </div>
+                        </Reveal>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+// =========================================================================
+// 12. STREAMLINED 5-FIELD CONTACT / AUDIT FORM
+// =========================================================================
 function Contact() {
     const [form, setForm] = useState({
         name: '',
         business: '',
         phone: '',
-        email: '',
-        type: 'Restaurant / Café',
-        message: ''
+        type: 'Dentist / Healthcare',
+        need: 'Everything (Complete Growth System)'
     });
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isSending, setIsSending] = useState(false);
+
     const update = key => e => setForm({
         ...form,
         [key]: e.target.value
     });
 
-    // Post lead fields that match the Google Sheet headers:
-    // Timestamp | Name | Phone | Email | Business | Message | Source
-    // (Timestamp is usually set inside the Apps Script.)
     const buildLeadParams = () => {
-        const messageWithType = [form.message?.trim(), form.type ? `Business type: ${form.type}` : ''].filter(Boolean).join('\n');
         return new URLSearchParams({
-            // lowercase keys (common in doPost e.parameter)
             name: form.name.trim(),
-            phone: form.phone.trim(),
-            email: form.email.trim(),
             business: form.business.trim(),
-            message: messageWithType,
-            source: 'Beyond Horizon website',
+            phone: form.phone.trim(),
             type: form.type,
-            // Title-case keys matching sheet column headers exactly
-            Name: form.name.trim(),
-            Phone: form.phone.trim(),
-            Email: form.email.trim(),
-            Business: form.business.trim(),
-            Message: messageWithType,
-            Source: 'Beyond Horizon website'
+            need: form.need,
+            message: `Business: ${form.business} (${form.type})\nNeed: ${form.need}`,
+            source: 'Beyond Horizon Website'
         });
     };
-    const postLeadToSheet = params => {
-        // Google Apps Script web apps don't send CORS headers, so fetch() from the
-        // browser fails (status 0). The classic, reliable trick is a real form POST
-        // targeting a hidden iframe — a same-document navigation that bypasses CORS
-        // entirely (no preflight, no opaque response). We also fire a no-cors GET as
-        // a backup for deployments that only expose doGet.
-        return new Promise(resolve => {
+
+    const submit = async e => {
+        e.preventDefault();
+        if (isSending) return;
+        setIsSending(true);
+
+        const params = buildLeadParams();
+        try {
+            // Send to Google Form / Sheets
             let iframe = document.getElementById('bh-sheet-iframe');
             if (!iframe) {
                 iframe = document.createElement('iframe');
@@ -568,211 +1536,331 @@ function Contact() {
                 iframe.style.display = 'none';
                 document.body.appendChild(iframe);
             }
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = GOOGLE_FORM_ENDPOINT;
-            form.target = 'bh-sheet-iframe';
-            form.enctype = 'application/x-www-form-urlencoded';
+            const sheetForm = document.createElement('form');
+            sheetForm.method = 'POST';
+            sheetForm.action = GOOGLE_FORM_ENDPOINT;
+            sheetForm.target = 'bh-sheet-iframe';
+            sheetForm.enctype = 'application/x-www-form-urlencoded';
             params.forEach((value, key) => {
                 const input = document.createElement('input');
                 input.type = 'hidden';
                 input.name = key;
                 input.value = value;
-                form.appendChild(input);
+                sheetForm.appendChild(input);
             });
-            document.body.appendChild(form);
-            form.submit();
+            document.body.appendChild(sheetForm);
+            sheetForm.submit();
             setTimeout(() => {
-                form.remove();
-                resolve();
+                sheetForm.remove();
             }, 1200);
 
-            // Backup: no-cors GET for doGet-only deployments.
-            fetch(`${GOOGLE_FORM_ENDPOINT}?${params.toString()}`, {
-                method: 'GET',
-                mode: 'no-cors',
-                redirect: 'follow'
-            }).catch(() => { });
-        });
-    };
-    const submit = async e => {
-        e.preventDefault();
-        if (isSending) return;
-        setIsSending(true);
-        const params = buildLeadParams();
-        try {
-            await postLeadToSheet(params);
             setIsSubmitted(true);
         } catch {
-            // Still open WhatsApp so the lead is not lost if the sheet call fails
+            // Fail softly
         } finally {
-            const text = ['Hi Beyond Horizon! I’d like my free growth audit.', `Name: ${form.name}`, `Business: ${form.business} (${form.type})`, `Phone: ${form.phone}`, form.email ? `Email: ${form.email}` : '', form.message ? `About my business: ${form.message}` : ''].filter(Boolean).join('\n');
+            const text = [
+                'Hi Beyond Horizon! I’d like my free growth audit.',
+                `Name: ${form.name}`,
+                `Business: ${form.business}`,
+                `Phone: ${form.phone}`,
+                `Business Type: ${form.type}`,
+                `Need Help With: ${form.need}`
+            ].join('\n');
             window.open(whatsappLink(text), '_blank', 'noopener');
             setIsSending(false);
         }
     };
-    const inputCls = 'w-full border-b-2 border-foreground/30 bg-transparent py-3 text-base outline-none transition-colors placeholder:text-foreground/35 focus:border-primary';
-    return <section id="contact" className="scroll-mt-24 border-t-[3px] border-foreground bg-background">
-        <div className="mx-auto max-w-6xl px-4 py-20 md:px-8 md:py-28">
-            <div className="grid gap-12 lg:grid-cols-2">
-                <Reveal>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
-                        Contact
-                    </p>
-                    <h2 className="mt-4 text-[clamp(2rem,5vw,4rem)] font-black uppercase leading-[1.02] tracking-tight">
-                        Tell Us About Your Business.
-                    </h2>
-                    <p className="mt-5 max-w-md text-base leading-relaxed text-foreground/70">
-                        Fill in the form and we’ll reply on WhatsApp with your free
-                        growth audit — usually within 48 hours. Prefer talking? Message
-                        us directly.
-                    </p>
-                    <div className="mt-8 space-y-4">
-                        <a href={whatsappLink('Hi Beyond Horizon! I’d like to talk about growing my business online.')} target="_blank" rel="noreferrer" className="inline-flex min-h-[48px] items-center gap-2 bg-foreground px-6 py-3 text-sm font-bold uppercase tracking-[0.12em] text-background transition-colors hover:bg-primary active:scale-[0.98]">
-                            <MessageCircle className="h-4 w-4" strokeWidth={2.4} />
-                            Chat on WhatsApp
-                        </a>
-                        <p className="flex items-center gap-2 text-sm font-semibold text-muted-foreground"><Phone className="h-4 w-4 text-primary" strokeWidth={2.4} />+91 92253 01670 · Mon–Sat, 10am–7pm IST</p>
-                    </div>
-                </Reveal>
 
-                <Reveal delay={0.12}>
-                    <form onSubmit={submit} className="border-[3px] border-foreground p-6 md:p-8" noValidate={false}>
-                        <div className="space-y-6">
-                            {isSubmitted && <p className="border-2 border-primary bg-primary/10 px-4 py-3 text-sm font-semibold" role="status">Thanks — your details have been received. We’ll be in touch shortly.</p>}
-                            <div className="flex flex-col gap-2">
-                                <label htmlFor="name" className="text-xs font-bold uppercase tracking-[0.15em]">
-                                    Your Name
-                                </label>
-                                <input id="name" type="text" required value={form.name} onChange={update('name')} placeholder="e.g. Priya Sharma" className={inputCls} />
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <label htmlFor="business" className="text-xs font-bold uppercase tracking-[0.15em]">
-                                    Business Name
-                                </label>
-                                <input id="business" type="text" required value={form.business} onChange={update('business')} placeholder="e.g. Sharma’s Kitchen" className={inputCls} />
-                            </div>
-                            <div className="grid gap-6 sm:grid-cols-2">
-                                <div className="flex flex-col gap-2">
-                                    <label htmlFor="phone" className="text-xs font-bold uppercase tracking-[0.15em]">
-                                        Phone / WhatsApp
-                                    </label>
-                                    <input id="phone" type="tel" required value={form.phone} onChange={update('phone')} placeholder="+91 …" className={inputCls} />
-                                </div>
-                                <div className="flex flex-col gap-2">
-                                    <label htmlFor="email" className="text-xs font-bold uppercase tracking-[0.15em]">
-                                        Email <span className="text-muted-foreground">(optional)</span>
-                                    </label>
-                                    <input id="email" type="email" value={form.email} onChange={update('email')} placeholder="you@business.com" className={inputCls} />
-                                </div>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <label htmlFor="type" className="text-xs font-bold uppercase tracking-[0.15em]">
-                                    Business Type
-                                </label>
-                                <select id="type" value={form.type} onChange={update('type')} className={`${inputCls} cursor-pointer`}>
-                                    <option>Restaurant / Café</option>
-                                    <option>Salon / Spa</option>
-                                    <option>Clinic / Healthcare</option>
-                                    <option>Retail Shop</option>
-                                    <option>Other Service Business</option>
-                                </select>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <label htmlFor="message" className="text-xs font-bold uppercase tracking-[0.15em]">
-                                    What’s your biggest challenge online? <span className="text-muted-foreground">(optional)</span>
-                                </label>
-                                <textarea id="message" rows={3} value={form.message} onChange={update('message')} placeholder="e.g. We don’t show up on Google Maps…" className={`${inputCls} resize-none`} />
-                            </div>
-                            <button type="submit" className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 bg-primary px-7 py-3 text-sm font-bold uppercase tracking-[0.12em] text-primary-foreground transition-colors hover:bg-foreground active:scale-[0.98]">
-                                Send & Get My Free Audit
-                                <ArrowRight className="h-4 w-4" strokeWidth={2.4} />
-                            </button>
-                            <p className="text-center text-xs text-muted-foreground">
-                                Submitting opens WhatsApp with your details pre-filled. No spam, ever.
+    const inputCls = 'w-full border-2 border-foreground bg-background px-4 py-3 text-sm font-semibold text-foreground outline-none transition-colors focus:border-primary';
+
+    return (
+        <section id="contact" className="scroll-mt-24 border-b-[3px] border-foreground bg-background py-16 md:py-24">
+            <div className="mx-auto max-w-6xl px-4 md:px-8">
+                <div className="grid gap-12 lg:grid-cols-12 items-start">
+                    {/* Left: Explainer */}
+                    <div className="lg:col-span-5">
+                        <Reveal>
+                            <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-primary md:text-xs">
+                                Free Audit
+                            </span>
+                            <h2 className="mt-3 text-[clamp(2rem,4.5vw,3.5rem)] font-black uppercase leading-[1.02] tracking-tight">
+                                Get My Free Growth Audit.
+                            </h2>
+                            <p className="mt-4 text-sm sm:text-base leading-relaxed text-foreground/75 font-medium">
+                                Fill in 5 quick details. We’ll analyze your Google Maps ranking, Instagram profile, and local area competition and send you a personalized action plan on WhatsApp within 48 hours.
                             </p>
-                        </div>
-                    </form>
-                </Reveal>
+
+                            <div className="mt-8 space-y-4">
+                                <a
+                                    href={whatsappLink('Hi Beyond Horizon! I want to talk directly about growing my business.')}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="inline-flex min-h-[48px] items-center gap-2 border-2 border-foreground bg-foreground px-6 py-3 text-xs sm:text-sm font-black uppercase tracking-[0.14em] text-background transition-colors hover:bg-primary hover:border-primary active:scale-[0.98]"
+                                >
+                                    <MessageCircle className="h-4 w-4" strokeWidth={2.4} />
+                                    <span>Prefer Talking? WhatsApp Us</span>
+                                </a>
+                                <p className="flex items-center gap-2 text-xs sm:text-sm font-bold text-muted-foreground">
+                                    <Phone className="h-4 w-4 text-primary" strokeWidth={2.4} />
+                                    <span>+91 92253 01670 · Mon–Sat, 10am–7pm IST</span>
+                                </p>
+                            </div>
+                        </Reveal>
+                    </div>
+
+                    {/* Right: Clean 5-Field Form */}
+                    <div className="lg:col-span-7">
+                        <Reveal delay={0.08}>
+                            <form
+                                onSubmit={submit}
+                                className="border-[3px] border-foreground bg-background p-6 sm:p-8 shadow-[6px_6px_0_0_hsl(var(--foreground))]"
+                            >
+                                <div className="space-y-5">
+                                    {isSubmitted && (
+                                        <div className="border-2 border-primary bg-primary/10 p-4 text-xs sm:text-sm font-bold text-foreground">
+                                            ✓ Thank you! Details received. Opening WhatsApp to connect with your growth lead...
+                                        </div>
+                                    )}
+
+                                    {/* 1. Name */}
+                                    <div className="flex flex-col gap-1.5">
+                                        <label htmlFor="name" className="text-xs font-black uppercase tracking-wider">
+                                            Your Name *
+                                        </label>
+                                        <input
+                                            id="name"
+                                            type="text"
+                                            required
+                                            value={form.name}
+                                            onChange={update('name')}
+                                            placeholder="e.g. Rahul Sharma"
+                                            className={inputCls}
+                                        />
+                                    </div>
+
+                                    {/* 2. Business Name */}
+                                    <div className="flex flex-col gap-1.5">
+                                        <label htmlFor="business" className="text-xs font-black uppercase tracking-wider">
+                                            Business Name *
+                                        </label>
+                                        <input
+                                            id="business"
+                                            type="text"
+                                            required
+                                            value={form.business}
+                                            onChange={update('business')}
+                                            placeholder="e.g. Apex Dental Clinic / Sharma Sweets"
+                                            className={inputCls}
+                                        />
+                                    </div>
+
+                                    {/* 3. Phone / WhatsApp */}
+                                    <div className="flex flex-col gap-1.5">
+                                        <label htmlFor="phone" className="text-xs font-black uppercase tracking-wider">
+                                            WhatsApp Number *
+                                        </label>
+                                        <input
+                                            id="phone"
+                                            type="tel"
+                                            required
+                                            value={form.phone}
+                                            onChange={update('phone')}
+                                            placeholder="+91 98765 43210"
+                                            className={inputCls}
+                                        />
+                                    </div>
+
+                                    {/* 4. Business Type Dropdown */}
+                                    <div className="flex flex-col gap-1.5">
+                                        <label htmlFor="type" className="text-xs font-black uppercase tracking-wider">
+                                            Business Type *
+                                        </label>
+                                        <select
+                                            id="type"
+                                            value={form.type}
+                                            onChange={update('type')}
+                                            className={`${inputCls} cursor-pointer`}
+                                        >
+                                            <option>Dentist / Healthcare</option>
+                                            <option>Salon / Spa</option>
+                                            <option>Restaurant / Cafe</option>
+                                            <option>Gym / Fitness Center</option>
+                                            <option>Retail / Electronics Store</option>
+                                            <option>Local Professional Services</option>
+                                            <option>Other Local Business</option>
+                                        </select>
+                                    </div>
+
+                                    {/* 5. Need Dropdown */}
+                                    <div className="flex flex-col gap-1.5">
+                                        <label htmlFor="need" className="text-xs font-black uppercase tracking-wider">
+                                            What Do You Need Help With? *
+                                        </label>
+                                        <select
+                                            id="need"
+                                            value={form.need}
+                                            onChange={update('need')}
+                                            className={`${inputCls} cursor-pointer`}
+                                        >
+                                            <option>Everything (Complete Growth System)</option>
+                                            <option>Google Maps Ranking & Local SEO</option>
+                                            <option>Instagram Management & 4K Reels</option>
+                                            <option>Fast Mobile Website & WhatsApp Booking</option>
+                                            <option>Targeted Local Meta Ads</option>
+                                        </select>
+                                    </div>
+
+                                    {/* Submit Button */}
+                                    <div className="pt-2">
+                                        <button
+                                            type="submit"
+                                            disabled={isSending}
+                                            className="w-full inline-flex min-h-[50px] items-center justify-center gap-2 border-2 border-foreground bg-primary px-6 py-3.5 text-xs sm:text-sm font-black uppercase tracking-[0.16em] text-primary-foreground shadow-[4px_4px_0_0_hsl(var(--foreground))] transition-all hover:bg-foreground hover:text-background active:scale-[0.98] cursor-pointer"
+                                        >
+                                            <span>Get My Free Growth Audit</span>
+                                            <ArrowRight className="h-4 w-4" strokeWidth={2.6} />
+                                        </button>
+                                        <p className="mt-2.5 text-center text-[11px] font-semibold text-muted-foreground">
+                                            Submitting opens WhatsApp with your audit details pre-filled. No spam, ever.
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+                        </Reveal>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>;
+        </section>
+    );
 }
+
+// =========================================================================
+// 13. FOOTER
+// =========================================================================
 function Footer() {
-    return <footer className="bg-foreground text-background">
-        <div className="mx-auto max-w-6xl px-4 pb-6 pt-16 md:px-8">
-            <div className="flex flex-col justify-between gap-10 md:flex-row">
-                <div className="max-w-sm">
-                    <p className="stretch-wide text-xl font-black uppercase tracking-tight">
-                        Beyond Horizon
-                    </p>
-                    <p className="mt-3 text-sm leading-relaxed text-background/60">
-                        Digital growth for local businesses. Get found, look
-                        professional, attract attention, win customers — and automate
-                        the rest.
-                    </p>
+    return (
+        <footer className="bg-foreground text-background">
+            <div className="mx-auto max-w-6xl px-4 pb-8 pt-16 md:px-8">
+                <div className="flex flex-col justify-between gap-10 md:flex-row">
+                    <div className="max-w-sm">
+                        <p className="stretch-wide text-xl font-black uppercase tracking-tight text-background">
+                            Beyond Horizon
+                        </p>
+                        <p className="mt-1 text-xs font-bold uppercase tracking-[0.2em] text-primary">
+                            Growth Partner for Local Businesses
+                        </p>
+                        <p className="mt-3 text-sm leading-relaxed text-background/60">
+                            We help dentists, salons, gyms, restaurants & retail stores get found on Google, look professional online, and turn attention into real customer enquiries.
+                        </p>
+                    </div>
+
+                    <nav className="grid grid-cols-2 gap-x-12 gap-y-3 text-sm" aria-label="Footer">
+                        {[
+                            ['#problem', 'The Problem'],
+                            ['#who-we-help', 'Who We Help'],
+                            ['#services', 'What We Do'],
+                            ['#work', 'Real Work'],
+                            ['#pricing', 'Pricing'],
+                            ['#process', 'How It Works'],
+                            [PORTFOLIO_URL, 'Live Portfolio ↗'],
+                            ['#contact', 'Free Audit']
+                        ].map(([href, label]) => (
+                            href.startsWith('http') ? (
+                                <a
+                                    key={href}
+                                    href={href}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="font-semibold text-primary transition-colors hover:underline"
+                                >
+                                    {label}
+                                </a>
+                            ) : (
+                                <a
+                                    key={href}
+                                    href={href}
+                                    className="font-semibold text-background/70 transition-colors hover:text-primary"
+                                >
+                                    {label}
+                                </a>
+                            )
+                        ))}
+                    </nav>
+
+                    <div className="text-sm">
+                        <p className="font-bold uppercase tracking-[0.15em] text-background/50">Reach us</p>
+                        <a
+                            href={whatsappLink('Hi Beyond Horizon!')}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="mt-3 inline-flex items-center gap-2 font-semibold text-background/80 transition-colors hover:text-primary"
+                        >
+                            <MessageCircle className="h-4 w-4 text-primary" strokeWidth={2.4} />
+                            <span>+91 92253 01670</span>
+                        </a>
+                        <p className="mt-2 text-xs text-background/60">
+                            growwithbeyondhorizon@gmail.com
+                        </p>
+                        <p className="mt-1 text-xs text-background/50">
+                            Kalyan • Thane • Mumbai • Maharashtra
+                        </p>
+                    </div>
                 </div>
-                <nav className="grid grid-cols-2 gap-x-12 gap-y-3 text-sm" aria-label="Footer">
-                    {[['#problem', 'The Problem'], ['/services', 'Services & Pricing'], ['#process', 'Process'], ['#audit', 'Free Audit'], ['#why-us', 'Why Us'], ['#contact', 'Contact']].map(([href, label]) => (
-                        href.startsWith('/') ? (
-                            <Link key={href} to={href} className="font-semibold text-background/70 transition-colors hover:text-primary">
-                                {label}
-                            </Link>
-                        ) : (
-                            <a key={href} href={href} className="font-semibold text-background/70 transition-colors hover:text-primary">
-                                {label}
-                            </a>
-                        )
-                    ))}
-                </nav>
-                <div className="text-sm">
-                    <p className="font-bold uppercase tracking-[0.15em] text-background/50">Reach us</p>
-                    <a href={whatsappLink('Hi Beyond Horizon!')} target="_blank" rel="noreferrer" className="mt-3 inline-flex items-center gap-2 font-semibold text-background/80 transition-colors hover:text-primary"><MessageCircle className="h-4 w-4 text-primary" strokeWidth={2.4} />+91 9225301670</a>
-                    <p className="mt-2 text-background/60" style={{
-                        textAlign: "left"
-                    }}><span style={{
-                        fontSize: "12px",
-                        lineHeight: "normal"
-                    }}>growwithbeyondhorizon@gmail.com</span></p>
+
+                <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-background/15 pt-6 text-xs text-background/50 sm:flex-row sm:items-center">
+                    <p>© {new Date().getFullYear()} Beyond Horizon. All rights reserved.</p>
+                    <p className="font-semibold uppercase tracking-[0.2em]">
+                        Built for local businesses. Focused on real growth.
+                    </p>
                 </div>
             </div>
-            <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-background/15 pt-6 text-xs text-background/50 sm:flex-row sm:items-center">
-                <p>© {new Date().getFullYear()} Beyond Horizon. All rights reserved.</p>
-                <p className="font-semibold uppercase tracking-[0.2em]">
-                    Built for local businesses. Focused on real growth.
+
+            <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">
+                <p className="stretch-wide -mb-[0.22em] whitespace-nowrap text-center text-[clamp(4rem,15vw,14rem)] font-black uppercase leading-none tracking-tight text-background/[0.07]">
+                    Beyond Horizon
                 </p>
             </div>
-        </div>
-        {/* Signature cropped word, recurring */}
-        <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">
-            <p className="stretch-wide -mb-[0.22em] whitespace-nowrap text-center text-[clamp(4rem,15vw,14rem)] font-black uppercase leading-none tracking-tight text-background/[0.08]">
-                Horizon Horizon
-            </p>
-        </div>
-    </footer>;
+        </footer>
+    );
 }
+
+// =========================================================================
+// MAIN HOMEPAGE COMPONENT
+// =========================================================================
 export default function HomePage() {
-    return <>
-        <Helmet>
-            <title>Beyond Horizon — Digital Growth for Local Businesses</title>
-            <meta name="description" content="Beyond Horizon is a local business growth partner for Indian restaurants, salons, clinics and shops. We help you get found on Google, look professional online, and turn attention into real customers. Get your free growth audit." />
-        </Helmet>
-        <Seo title="Beyond Horizon — Digital Growth for Local Businesses" description="We help Indian local businesses get found on Google, look professional on social media, and turn online attention into real customers." image="/og-image.jpg" siteName="Beyond Horizon" url="https://beyondhorizon.co.in/" />
-        <Frame />
-        <div className={`min-h-[100dvh] bg-foreground ${FRAME}`}>
-            <div className="bg-background">
+    return (
+        <>
+            <Helmet>
+                <title>Beyond Horizon — Digital Growth for Local Businesses</title>
+                <meta
+                    name="description"
+                    content="Beyond Horizon is a digital growth partner for local dentists, salons, gyms, restaurants and retail stores. Get found on Google, look professional online, and turn attention into real customer enquiries. Get your free growth audit."
+                />
+            </Helmet>
+            <Seo
+                title="Beyond Horizon — Digital Growth for Local Businesses"
+                description="We help local businesses get found on Google, look professional online, and turn attention into real customer enquiries."
+                image="/og-image.jpg"
+                siteName="Beyond Horizon"
+                url="https://beyondhorizon.co.in/"
+            />
+            <div className="min-h-[100dvh] bg-background">
                 <Header />
                 <main>
                     <Hero />
                     <Problem />
+                    <WhoWeHelp />
                     <Services />
+                    <WhatWeDoMonthly />
+                    <RealWork />
+                    <BeforeAfter />
                     <Process />
-                    <AuditCta />
+                    <Pricing />
                     <WhyUs />
                     <Contact />
                 </main>
                 <Footer />
             </div>
-        </div>
-    </>;
+        </>
+    );
 }
