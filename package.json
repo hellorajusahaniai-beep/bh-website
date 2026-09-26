@@ -6,6 +6,7 @@
         "setup": "npm install",
         "dev": "concurrently --kill-others --raw \"npm run dev --prefix web\"",
         "build": "npm --workspace web run build && node -e \"const fs=require('fs'); fs.cpSync('web/dist', 'dist', {recursive: true});\"",
+        "deploy": "npm run build && npx wrangler pages deploy web/dist --project-name beyond-horizon",
         "start": "concurrently --kill-others --raw",
         "lint": "concurrently --raw \"npm run lint --prefix web\""
     },
