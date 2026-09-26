@@ -91,8 +91,8 @@ export default function StoryHero() {
             className="relative bg-[#FAFAFA] text-[#0A0A0A] h-[240vh]"
             style={{ contain: 'paint' }}
         >
-            {/* Sticky Viewport Canvas - locked right below sticky navbar so headline never disappears */}
-            <div className="sticky top-[72px] md:top-[71px] h-[calc(100dvh-72px)] md:h-[calc(100dvh-71px)] w-full overflow-hidden flex flex-col justify-between bg-[#FAFAFA]">
+            {/* Sticky Viewport Canvas - docked below sticky navbar with proper clearance on both mobile & desktop */}
+            <div className="sticky top-[66px] md:top-[86px] h-[calc(100dvh-66px)] md:h-[calc(100dvh-86px)] w-full overflow-hidden flex flex-col justify-between bg-[#FAFAFA]">
                 
                 {/* Subtle Clean Negative Space Background Grid */}
                 <div
@@ -103,7 +103,7 @@ export default function StoryHero() {
                 {/* =========================================================================
                     DYNAMIC NARRATIVE HEADLINE BANNER (Continuous Scroll-Driven Transitions)
                    ========================================================================= */}
-                <div className="relative z-30 px-4 sm:px-6 lg:px-10 pt-3 pb-1 sm:pt-3.5 sm:pb-1 md:pt-4 md:pb-1 text-center select-none min-h-[76px] sm:min-h-[84px] grid grid-cols-1 grid-rows-1 [&>*]:col-start-1 [&>*]:row-start-1 items-center justify-center">
+                <div className="relative z-30 px-4 sm:px-6 lg:px-10 pt-6 sm:pt-8 md:pt-12 lg:pt-14 pb-2 sm:pb-3 md:pb-4 text-center select-none min-h-[92px] sm:min-h-[100px] md:min-h-[116px] grid grid-cols-1 grid-rows-1 [&>*]:col-start-1 [&>*]:row-start-1 items-center justify-center">
                     
                     {/* Stage 01: Offline Reality */}
                     <motion.div
