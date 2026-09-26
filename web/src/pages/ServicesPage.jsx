@@ -35,13 +35,20 @@ function whatsappLink(message) {
 }
 
 function Frame() {
-    return null;
+    return (
+        <>
+            <div aria-hidden="true" className={`pointer-events-none fixed ${FRAME_INSET} z-[80] border-[3px] border-foreground`} />
+            <div aria-hidden="true" className="pointer-events-none fixed left-2.5 top-2.5 z-[81] h-3 w-3 -translate-x-1/2 -translate-y-1/2 bg-primary md:left-3.5 md:top-3.5" />
+        </>
+    );
 }
 
 function ServicesHeader() {
     return (
-        <header className="sticky top-0 z-[70] border-b-[3px] border-foreground bg-background">
-            <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
+        <>
+            <div className="h-2.5 sm:h-3 md:h-4 bg-background" aria-hidden="true" />
+            <header className="sticky top-2.5 md:top-3.5 z-[70] border-y-[3px] border-foreground bg-background">
+                <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
                 <Link to="/" className="flex items-baseline gap-2">
                     <span className="stretch-wide whitespace-nowrap text-base font-black uppercase leading-none tracking-tight sm:text-lg md:text-xl">
                         Beyond Horizon
@@ -84,6 +91,7 @@ function ServicesHeader() {
                 </a>
             </div>
         </header>
+        </>
     );
 }
 
@@ -153,8 +161,10 @@ export default function ServicesPage() {
                 siteName="Beyond Horizon"
                 url="https://beyondhorizon.co.in/services"
             />
-            <div className="min-h-[100dvh] bg-background">
-                <ServicesHeader />
+            <Frame />
+            <div className={`min-h-[100dvh] bg-foreground ${FRAME}`}>
+                <div className="bg-background">
+                    <ServicesHeader />
 
                     <main>
                         {/* Hero Section */}
@@ -1283,6 +1293,7 @@ export default function ServicesPage() {
                         </div>
                     </footer>
                 </div>
-            </>
+            </div>
+        </>
     );
 }

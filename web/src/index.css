@@ -46,7 +46,7 @@ html {
 
 body {
     font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
-    background: hsl(var(--background));
+    background: hsl(var(--foreground));
     color: hsl(var(--foreground));
     overflow-x: clip;
     -webkit-font-smoothing: antialiased;
