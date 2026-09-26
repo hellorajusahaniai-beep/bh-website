@@ -29,8 +29,8 @@ import dentalHappyPatientImg from '@/assets/dental-reforms-happy-patient.jpg';
 const WHATSAPP_NUMBER = '919225301670';
 const PORTFOLIO_URL = 'https://beyond-horizon-portfolio.pages.dev';
 const GOOGLE_FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzWesK8MJo2oeqR8ZtIMuXj7DWYU5eqPxIpVTn-wwq5PuVXxn4agBjS96rqkDqh-Evr/exec';
-const FRAME = 'p-2.5 md:p-3.5';
-const FRAME_INSET = 'top-2.5 bottom-2.5 left-2.5 right-2.5 md:top-3.5 md:bottom-3.5 md:left-3.5 md:right-3.5';
+const FRAME = 'p-0 md:p-3.5';
+const FRAME_INSET = 'md:top-3.5 md:bottom-3.5 md:left-3.5 md:right-3.5';
 
 function whatsappLink(message) {
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -39,8 +39,8 @@ function whatsappLink(message) {
 function Frame() {
     return (
         <>
-            <div aria-hidden="true" className={`pointer-events-none fixed ${FRAME_INSET} z-[80] border-[3px] border-foreground`} />
-            <div aria-hidden="true" className="pointer-events-none fixed left-2.5 top-2.5 z-[81] h-3 w-3 -translate-x-1/2 -translate-y-1/2 bg-primary md:left-3.5 md:top-3.5" />
+            <div aria-hidden="true" className={`pointer-events-none fixed ${FRAME_INSET} z-[80] hidden md:block border-[3px] border-foreground`} />
+            <div aria-hidden="true" className="pointer-events-none fixed z-[81] hidden md:block h-3 w-3 -translate-x-1/2 -translate-y-1/2 bg-primary md:left-3.5 md:top-3.5" />
         </>
     );
 }
@@ -62,7 +62,7 @@ function Header() {
     return (
         <>
             <div className="h-2.5 sm:h-3 md:h-4 bg-background" aria-hidden="true" />
-            <header className="sticky top-2.5 md:top-3.5 z-[70] border-y-[3px] border-foreground bg-background">
+            <header className="sticky top-0 md:top-3.5 z-[70] border-y-[3px] border-foreground bg-background">
                 <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 md:px-8">
                 <a href="#top" className="flex items-baseline gap-2">
                     <span className="stretch-wide whitespace-nowrap text-base font-black uppercase leading-none tracking-tight sm:text-lg md:text-xl">
@@ -1859,7 +1859,7 @@ export default function HomePage() {
                 url="https://beyondhorizon.co.in/"
             />
             <Frame />
-            <div className={`min-h-[100dvh] bg-foreground ${FRAME}`}>
+            <div className={`min-h-[100dvh] bg-background md:bg-foreground ${FRAME}`}>
                 <div className="bg-background">
                     <Header />
                     <main>
