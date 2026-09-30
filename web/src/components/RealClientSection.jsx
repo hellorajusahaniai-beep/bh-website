@@ -45,7 +45,13 @@ export default function RealClientSection() {
                     <div className="grid gap-6 md:grid-cols-12 md:gap-8">
                         {/* Client 1: Global Computer Solution */}
                         <div className="group border-[3px] border-foreground bg-background p-4 shadow-[4px_4px_0_0_hsl(var(--foreground))] transition-all duration-300 hover:shadow-[8px_8px_0_0_hsl(var(--foreground))] md:col-span-7">
-                            <div className="relative aspect-[16/9] w-full overflow-hidden border-2 border-foreground bg-black">
+                            <a
+                                href="https://beyond-horizon-portfolio.pages.dev/global-computer-solution"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="relative block aspect-[16/9] w-full overflow-hidden border-2 border-foreground bg-black cursor-pointer"
+                                aria-label="View Global Computer Solution Case Study"
+                            >
                                 <img
                                     src={gcsImage}
                                     alt="Global Computer Solution illuminated storefront board in Kalyan West"
@@ -55,12 +61,19 @@ export default function RealClientSection() {
                                 <div className="absolute bottom-2 left-2 border border-foreground bg-background/95 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider backdrop-blur-sm">
                                     Storefront Signboard
                                 </div>
-                            </div>
+                            </a>
                             <div className="mt-4 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
                                 <div>
-                                    <h4 className="text-sm font-black uppercase tracking-tight text-foreground">
-                                        Global Computer Solution
-                                    </h4>
+                                    <a
+                                        href="https://beyond-horizon-portfolio.pages.dev/global-computer-solution"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="hover:text-primary transition-colors"
+                                    >
+                                        <h4 className="text-sm font-black uppercase tracking-tight text-foreground hover:text-primary transition-colors">
+                                            Global Computer Solution
+                                        </h4>
+                                    </a>
                                     <p className="text-xs font-semibold text-muted-foreground">
                                         Kongaon, Kalyan West · CCTV, Laptops & PC Sales
                                     </p>
@@ -74,7 +87,13 @@ export default function RealClientSection() {
 
                         {/* Client 2: Dargar Communication */}
                         <div className="group border-[3px] border-foreground bg-background p-4 shadow-[4px_4px_0_0_hsl(var(--foreground))] transition-all duration-300 hover:shadow-[8px_8px_0_0_hsl(var(--foreground))] md:col-span-5">
-                            <div className="relative aspect-[16/9] w-full overflow-hidden border-2 border-foreground bg-black">
+                            <a
+                                href="https://beyond-horizon-portfolio.pages.dev/dargar-communication"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="relative block aspect-[16/9] w-full overflow-hidden border-2 border-foreground bg-black cursor-pointer"
+                                aria-label="View Dargar Communication Case Study"
+                            >
                                 <img
                                     src={dargarCommImage}
                                     alt="Dargar Communication retail mobile storefront in Kalyan"
@@ -84,12 +103,19 @@ export default function RealClientSection() {
                                 <div className="absolute bottom-2 left-2 border border-foreground bg-background/95 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider backdrop-blur-sm">
                                     Retail Storefront
                                 </div>
-                            </div>
+                            </a>
                             <div className="mt-4 flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
                                 <div>
-                                    <h4 className="text-sm font-black uppercase tracking-tight text-foreground">
-                                        Dargar Communication
-                                    </h4>
+                                    <a
+                                        href="https://beyond-horizon-portfolio.pages.dev/dargar-communication"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="hover:text-primary transition-colors"
+                                    >
+                                        <h4 className="text-sm font-black uppercase tracking-tight text-foreground hover:text-primary transition-colors">
+                                            Dargar Communication
+                                        </h4>
+                                    </a>
                                     <p className="text-xs font-semibold text-muted-foreground">
                                         Kalyan · Mobile & Electronics Retail
                                     </p>

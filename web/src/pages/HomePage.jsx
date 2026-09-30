@@ -767,7 +767,8 @@ function RealWork() {
             image: dentalHappyPatientImg,
             imagePosition: 'object-[center_20%]',
             imageCaption: 'Happy Patient & Dr. Dipika Dodeja Following Treatment at Dental Reforms Clinic',
-            badge: 'Healthcare Client'
+            badge: 'Healthcare Client',
+            caseStudyUrl: `${PORTFOLIO_URL}/dental-reforms`
         },
         {
             name: 'Dargar Communication',
@@ -776,7 +777,8 @@ function RealWork() {
             deliverables: 'Retail Storefront Branding • Google Maps Optimization • Countertop Review QR Scanner',
             image: dargarCommImg,
             imageCaption: 'Physical Retail Storefront & In-Store Google QR Review Scanner',
-            badge: 'Retail Storefront'
+            badge: 'Retail Storefront',
+            caseStudyUrl: `${PORTFOLIO_URL}/dargar-communication`
         },
         {
             name: 'Global Computer Solution',
@@ -785,7 +787,8 @@ function RealWork() {
             deliverables: 'Google Business Profile Setup • Local Search Dominance • Target Service Ads',
             image: gcsImg,
             imageCaption: 'Illuminated Storefront Board & Verified Google Business Presence',
-            badge: 'IT & Hardware'
+            badge: 'IT & Hardware',
+            caseStudyUrl: `${PORTFOLIO_URL}/global-computer-solution`
         },
         {
             name: 'Siddhi Dental Clinic',
@@ -794,7 +797,8 @@ function RealWork() {
             deliverables: 'High-Converting Clinic Website • On-Site Photography • Online Patient Booking',
             image: siddhiDentalImg,
             imageCaption: 'Real Doctor & Patient Treatment Session Captured for Website',
-            badge: 'Clinical Practice'
+            badge: 'Clinical Practice',
+            caseStudyUrl: `${PORTFOLIO_URL}/siddhi-dental`
         }
     ];
 
@@ -808,11 +812,11 @@ function RealWork() {
                                 Proof of Work
                             </span>
                             <h2 className="mt-3 text-[clamp(1.8rem,4.5vw,3.5rem)] font-black uppercase leading-[1.05] tracking-tight">
-                                Real Businesses.{' '}
-                                <span className="text-primary">Real Work.</span>
+                                Real Work.{' '}
+                                <span className="text-primary">Not Stock Mockups.</span>
                             </h2>
                             <p className="mt-2 text-sm sm:text-base leading-relaxed text-foreground/75 font-medium max-w-2xl">
-                                We don’t show fake mockups. Here is real work we have created, filmed, and launched for actual offline businesses:
+                                See how we build visibility, content and customer acquisition systems for local businesses.
                             </p>
                         </div>
                         <a
@@ -821,7 +825,7 @@ function RealWork() {
                             rel="noreferrer"
                             className="inline-flex min-h-[46px] items-center gap-2 border-2 border-foreground bg-foreground px-5 py-2.5 text-xs font-black uppercase tracking-[0.14em] text-background transition-colors hover:bg-primary active:scale-[0.98] shrink-0"
                         >
-                            <span>Explore Live Portfolio Site</span>
+                            <span>Explore All Case Studies</span>
                             <ArrowUpRight className="h-4 w-4 text-primary" strokeWidth={2.4} />
                         </a>
                     </div>
@@ -834,7 +838,13 @@ function RealWork() {
                             <div className="group border-[3px] border-foreground bg-background p-5 sm:p-6 shadow-[6px_6px_0_0_hsl(var(--foreground))] transition-all duration-300 hover:shadow-[10px_10px_0_0_hsl(var(--primary))] flex flex-col justify-between h-full">
                                 <div>
                                     {/* Visual Image */}
-                                    <div className="relative aspect-[16/10] w-full overflow-hidden border-2 border-foreground bg-secondary/40">
+                                    <a
+                                        href={client.caseStudyUrl}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="relative block aspect-[16/10] w-full overflow-hidden border-2 border-foreground bg-secondary/40 cursor-pointer"
+                                        aria-label={`View ${client.name} Case Study`}
+                                    >
                                         <div className="absolute top-2.5 right-2.5 z-10 border border-foreground bg-background px-2.5 py-0.5 text-[10px] font-black uppercase tracking-wider text-foreground shadow-[2px_2px_0_0_hsl(var(--foreground))]">
                                             {client.badge}
                                         </div>
@@ -847,16 +857,23 @@ function RealWork() {
                                         <div className="absolute bottom-0 inset-x-0 bg-background/95 border-t border-foreground px-3 py-1.5 text-[10px] font-bold text-foreground">
                                             {client.imageCaption}
                                         </div>
-                                    </div>
+                                    </a>
 
                                     {/* Content */}
                                     <div className="mt-5">
                                         <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-primary">
-                                            {client.location}
+                                             {client.location}
                                         </span>
-                                        <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-foreground mt-0.5">
-                                            {client.name}
-                                        </h3>
+                                        <a
+                                            href={client.caseStudyUrl}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="block group-hover:text-primary transition-colors"
+                                        >
+                                            <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-foreground mt-0.5 hover:text-primary transition-colors">
+                                                {client.name}
+                                            </h3>
+                                        </a>
                                         <p className="text-xs font-semibold text-muted-foreground mt-0.5">
                                             {client.category}
                                         </p>
@@ -870,16 +887,16 @@ function RealWork() {
 
                                 <div className="mt-6 pt-3 border-t-2 border-foreground/15 flex items-center justify-between">
                                     <span className="text-[11px] font-black uppercase tracking-wider text-muted-foreground">
-                                        Active Client
+                                        ACTIVE CLIENT
                                     </span>
                                     <a
-                                        href={PORTFOLIO_URL}
+                                        href={client.caseStudyUrl}
                                         target="_blank"
                                         rel="noreferrer"
-                                        className="inline-flex items-center gap-1 text-xs font-black uppercase tracking-wider text-primary hover:text-foreground transition-colors"
+                                        className="inline-flex items-center gap-1.5 border border-foreground bg-background px-3 py-1.5 text-xs font-black uppercase tracking-wider text-primary shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all hover:bg-primary hover:text-primary-foreground hover:shadow-[3px_3px_0_0_hsl(var(--foreground))] active:translate-x-0.5 active:translate-y-0.5"
                                     >
                                         <span>View Case Details</span>
-                                        <ArrowUpRight className="h-3.5 w-3.5" />
+                                        <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={2.4} />
                                     </a>
                                 </div>
                             </div>
